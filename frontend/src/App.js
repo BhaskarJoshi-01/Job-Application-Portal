@@ -4,6 +4,7 @@ import "bootstrap/dist/css/bootstrap.min.css"
 
 import UsersList from './components/Users/UsersList'
 import Home from './components/Common/Home'
+import Login from './components/Common/Login'
 import Register from './components/Common/Register'
 import Navbar from './components/templates/Navbar'
 import Profile from './components/Users/Profile'
@@ -16,6 +17,7 @@ function App() {
         <br/>
         <Route path="/" exact component={Home}/>
         <Route path="/users" exact component={UsersList}/>
+        <Route path="/login" component={Login}/>
         <Route path="/register" component={Register}/>
         <Route path="/profile" component={Profile}/>
       </div>

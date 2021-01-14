@@ -18,7 +18,8 @@ export default class Home extends Component {
     render() {
         return (
             <div>
-                Happy Coding!
+              Welcome to Valo - The Job Applicant Portal
+              Click Register/Login to continue !!
            </div>
         )
     }
