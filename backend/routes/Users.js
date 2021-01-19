@@ -6,14 +6,14 @@ const User = require("../models/Users");
 
 // GET request 
 // Getting all the users
-router.get("/", function(req, res) {
-    User.find(function(err, users) {
-		if (err) {
-			console.log(err);
-		} else {
-			res.json(users);
-		}
-	})
+router.get("/", function (req, res) {
+    User.find(function (err, users) {
+        if (err) {
+            console.log(err);
+        } else {
+            res.json(users);
+        }
+    })
 });
 
 // NOTE: Below functions are just sample to show you API endpoints working, for the assignment you may need to edit them
@@ -22,9 +22,13 @@ router.get("/", function(req, res) {
 // Add a user to db
 router.post("/register", (req, res) => {
     const newUser = new User({
-        name: req.body.name,
+        FirstName: req.body.FirstName,
+        LastName: req.body.LastName,
         email: req.body.email,
-        date: req.body.date
+        date: req.body.date,
+        type: req.body.type,
+        password: req.body.type,
+
     });
 
     newUser.save()
@@ -39,20 +43,28 @@ router.post("/register", (req, res) => {
 // POST request 
 // Login
 router.post("/login", (req, res) => {
-	const email = req.body.email;
-	// Find user by email
-	User.findOne({ email }).then(user => {
-		// Check if user email exists
-		if (!user) {
-			return res.status(404).json({
-				error: "Email not found",
-			});
+    const email = req.body.email;
+    const password = req.body.password;
+
+    // Find user by email
+    User.findOne({ email }).then(user => {
+        // Check if user email exists
+        if (!user) {
+            return res.status(404).json({
+                error: "Email not found",
+            });
         }
-        else{
-            res.send("Email Found");
-            return user;
+
+        else {
+            if (user.password == password) {
+                res.send("Email Found");
+                return user;
+            }
+            else {
+                return res.send("Incorrect Password!");
+            }
         }
-	});
+    });
 });
 
 module.exports = router;
