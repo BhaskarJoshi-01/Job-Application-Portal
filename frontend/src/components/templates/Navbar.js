@@ -26,8 +26,8 @@ function NavBar() {
 
                         <Navbar.Collapse className="justify-content-end-md mt-xs-3" >
                             <Nav className="ml-auto">
-                                <Nav.Link style={{ fontSize: "20px", fontWeight: 'light' }} href="/register" className="mr-3 ml-1"><i class="fas fa-user-plus" style={{ marginRight: "10px" }}></i>Register</Nav.Link>
-                                <Nav.Link style={{ fontSize: "20px", fontWeight: 'light' }} href="/login"  ><i class="fas fa-sign-in-alt" style={{ marginRight: "10px" }}></i>Login</Nav.Link>
+                                <Nav.Link style={{ fontSize: "20px", fontWeight: 'light' }} href="/register" className="mr-3 ml-1"><i className="fas fa-user-plus" style={{ marginRight: "10px" }}></i>Register</Nav.Link>
+                                <Nav.Link style={{ fontSize: "20px", fontWeight: 'light' }} href="/login"  ><i className="fas fa-sign-in-alt" style={{ marginRight: "10px" }}></i>Login</Nav.Link>
                             </Nav>
                         </Navbar.Collapse>
                     </Navbar>

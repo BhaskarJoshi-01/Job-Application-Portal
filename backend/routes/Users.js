@@ -3,9 +3,8 @@ var router = express.Router();
 
 // Load User model
 const User = require("../models/Users");
-const Recruiter = require("../models/Recruiter");
 const Jobdetails = require("../models/Jobdetails");
-const JobApplicant = require("../models/Jobapplicant");
+// const { default: Applicant } = require("../../frontend/src/components/Common/jobapplicant");
 
 
 // GET request 
@@ -24,25 +23,52 @@ router.get("/", function (req, res) {
 
 // POST request 
 // Add a user to db
+
 router.post("/register", (req, res) => {
-    const newUser = new User({
-        FirstName: req.body.FirstName,
-        LastName: req.body.LastName,
-        email: req.body.email,
-        date: req.body.date,
-        type: req.body.type,
-        password: req.body.password,
+    const email = req.body.email;
+    User.findOne({ email }).then(user => {
+        if (!user) {
+            const newUser = new User({
 
+                FirstName: req.body.FirstName,
+                LastName: req.body.LastName,
+                email: req.body.email,
+                date: req.body.date,
+                type: req.body.type,
+                password: req.body.password
+            });
+
+            if (req.body.type == 'Recruiter') {
+                newUser.contact = req.body.contact
+            }
+            else {
+                newUser.education = req.body.education
+
+            }
+            if (req.body.type == 'JobApplicant') 
+            {
+                newUser.skill = req.body.skill
+            }
+            else 
+            {
+                newUser.bio = req.body.bio
+            }
+            newUser.save()
+                .then(user => {
+                    res.status(200).json(user);
+                })
+                .catch(err => {
+                    res.status(400).send(err);
+                });
+        }
+        else {
+            return res.status(404).json({
+                error: "You already have  an account :/ ",
+            });
+        }
     });
-
-    newUser.save()
-        .then(user => {
-            res.status(200).json(user);
-        })
-        .catch(err => {
-            res.status(400).send(err);
-        });
 });
+
 
 // POST request 
 // Login
@@ -67,7 +93,7 @@ router.post("/login", (req, res) => {
             else {
 
                 return res.status(404).json({
-                    error:"Password is incorrect !",
+                    error: "Password is incorrect !",
                 });
             }
         }

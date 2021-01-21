@@ -1,26 +1,26 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import axios from 'axios';
 
 export default class Login extends Component {
-    
+
     constructor(props) {
         super(props);
 
         this.state = {
             email: '',
             password: '',
-            date:null
+            date: null
         }
 
         this.onChangeEmail = this.onChangeEmail.bind(this);
         this.onChangePassword = this.onChangePassword.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
     }
-    
+
     onChangeEmail(event) {
         this.setState({ email: event.target.value });
     }
-    
+
     onChangePassword(event) {
         this.setState({ password: event.target.value });
     }
@@ -34,13 +34,23 @@ export default class Login extends Component {
             date: Date.now()
         }
         axios.post('http://localhost:4000/user/login', newUser)
-             .then(res => {alert("Login successful\t");console.log(res.data)})
-             ;
+            .then(res => {
+                alert("Login successful\t"); 
+
+            })
+            .catch(err => {
+                if (err.response.status === 400) {
+                    alert("Email not found . Please Register");
+                }
+                else {
+                    alert("Password Incorrect ! ");
+                }
+            });
 
         this.setState({
             email: '',
             password: '',
-            date:null
+            date: null
         });
     }
 
@@ -51,23 +61,23 @@ export default class Login extends Component {
                     <div className="form-group">
                         <label>Email: </label>
                         <input type="email"
-                        placeholder="Enter Email" 
-                               className="form-control" 
-                               value={this.state.email}
-                               onChange={this.onChangeEmail}
-                               />  
+                            placeholder="Enter Email"
+                            className="form-control"
+                            value={this.state.email}
+                            onChange={this.onChangeEmail}
+                        />
                     </div>
                     <div className="form-group">
                         <label>Password: </label>
                         <input type="password"
-                        placeholder="Password" 
-                               className="form-control" 
-                               value={this.state.password}
-                               onChange={this.onChangePassword}
-                               />
+                            placeholder="Password"
+                            className="form-control"
+                            value={this.state.password}
+                            onChange={this.onChangePassword}
+                        />
                     </div>
                     <div className="form-group">
-                        <input type="submit" value="Login" className="btn btn-primary"/>
+                        <input type="submit" value="Login" className="btn btn-primary" />
                     </div>
                 </form>
             </div>

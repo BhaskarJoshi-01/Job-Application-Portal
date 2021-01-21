@@ -58,28 +58,39 @@ export default class Register extends Component {
             email: this.state.email,
             password: this.state.password,
             date: Date.now(),
-            education:this.state.education,
-            skill:this.state.skill,
-            contact:this.state.contact,
-            bio:this.state.bio
-            
+            education: this.state.education,
+            skill: this.state.skill,
+            contact: this.state.contact,
+            bio: this.state.bio
         }
         axios.post('http://localhost:4000/user/register', newUser)
             .then(res => {
-                alert("User " + res.data.FirstName + " " + res.data.LastName + "Created ");
-                //  console.log(res.data)
+                alert("User " + res.data.FirstName + " " + res.data.LastName + " Created ");
             })
-            ;
+            .catch(err => {
+                if (err.response.status === 400) {
+                    alert("Error in saving ! Please try again later");
+                }
+                else {
+                    alert("You are already registered!");
+                }
+            });
 
         this.setState({
-            type: '',
+            type: 'JobApplicant',
             FirstName: '',
             LastName: '',
             email: '',
             password: '',
-            date: null
+            date: null,
+            education: [],
+            skill: [],
+            contact: '',
+            bio: '',
+            usr: 'true'
         });
     }
+
 
     render() {
         const usr = this.state.usr;
@@ -87,26 +98,40 @@ export default class Register extends Component {
             <div>
                 <form onSubmit={this.onSubmit}>
                     <div className="form-group">
-                        <label>Email: </label>
-                        <input type="email"
-                            placeholder="Enter Email"
-                            className="form-control"
-                            value={this.state.email}
-                            onChange={this.onChangeEmail}
-                        />
+                        <div>
+
+                            <h3>Email: </h3>
+                        </div>
+                        <div>
+
+                            <input type="email"
+                                placeholder="Enter Email"
+                                className="form-control"
+                                value={this.state.email}
+                                onChange={this.onChangeEmail}
+                            />
+                        </div>
+
                     </div>
 
                     <div className="form-group">
-                        <label>Type: </label>
+                        <div>
+                            <h3>Type: </h3>
+                        </div>
+
                         <select className="form-control"
                             value={this.state.type}
                             onChange={this.onChangeType}>
-                            <option value="Applicant">Job Applicant </option>
+                            <option value="JobApplicant">Job Applicant </option>
                             <option value="Recruiter">Recruiter </option>
                         </select>
                     </div>
                     <div className="form-group">
-                        <label>FirstName: </label>
+                        <div>
+
+                            <h3>FirstName: </h3>
+                        </div>
+
                         <input type="text"
                             placeholder="First Name"
                             className="form-control"
@@ -115,7 +140,7 @@ export default class Register extends Component {
                         />
                     </div>
                     <div className="form-group">
-                        <label>LastName: </label>
+                        <h3>LastName: </h3>
                         <input type="text"
                             placeholder="Last Name"
 
@@ -127,7 +152,7 @@ export default class Register extends Component {
 
 
                     <div className="form-group">
-                        <label>Password: </label>
+                        <h3>Password: </h3>
                         <input type="password"
                             placeholder="Password"
                             className="form-control"
@@ -136,9 +161,11 @@ export default class Register extends Component {
                         />
                     </div>
                     <div>
-                        {usr
-                            ? <Applicant />
-                            : <Recruiter />
+
+                        {!usr
+                            ?
+                            <Recruiter />
+                            : <Applicant />
                         }
                     </div>
                     <div className="form-group">

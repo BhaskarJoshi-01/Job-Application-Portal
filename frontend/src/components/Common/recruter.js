@@ -8,8 +8,8 @@ export default class Recruiter extends Component {
 
         this.state = {
 
-            contact: null,
-            bio: null,
+            contact: '',
+            bio: ''
 
         }
         // this.onChangeEmail = this.onChangeEmail.bind(this);
@@ -32,17 +32,22 @@ export default class Recruiter extends Component {
             <div>
 
                 <div className="form-group">
-                    <label>Contact: </label>
+                    <div>
+                        <h3>Contact: </h3>
+                    </div>
                     <input type="tel"
-                    placeholder="Phone-Number"
-                    pattern="[0-9]{10}"
+                        placeholder="Phone-Number"
+                        pattern="[0-9]{10}"
                         className="form-control"
                         value={this.state.contact}
                         onChange={this.onChangeContact}
                     />
                 </div>
                 <div className="form-group">
-                    <label>Bio: (max 250 words) </label>
+                    <div>
+                        <h3>Bio: (max 250 words) </h3>
+                    </div>
+
                     <textarea
                         className="form-control"
                         maxLength="250"
