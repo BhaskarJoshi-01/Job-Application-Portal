@@ -50,7 +50,8 @@ export default class Login extends Component {
                 <form onSubmit={this.onSubmit}>
                     <div className="form-group">
                         <label>Email: </label>
-                        <input type="text" 
+                        <input type="email"
+                        placeholder="Enter Email" 
                                className="form-control" 
                                value={this.state.email}
                                onChange={this.onChangeEmail}
@@ -58,7 +59,8 @@ export default class Login extends Component {
                     </div>
                     <div className="form-group">
                         <label>Password: </label>
-                        <input type="password" 
+                        <input type="password"
+                        placeholder="Password" 
                                className="form-control" 
                                value={this.state.password}
                                onChange={this.onChangePassword}

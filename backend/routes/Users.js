@@ -3,6 +3,10 @@ var router = express.Router();
 
 // Load User model
 const User = require("../models/Users");
+const Recruiter = require("../models/Recruiter");
+const Jobdetails = require("../models/Jobdetails");
+const JobApplicant = require("../models/Jobapplicant");
+
 
 // GET request 
 // Getting all the users
@@ -27,7 +31,7 @@ router.post("/register", (req, res) => {
         email: req.body.email,
         date: req.body.date,
         type: req.body.type,
-        password: req.body.type,
+        password: req.body.password,
 
     });
 
@@ -61,7 +65,10 @@ router.post("/login", (req, res) => {
                 return user;
             }
             else {
-                return res.send("Incorrect Password!");
+
+                return res.status(404).json({
+                    error:"Password is incorrect !",
+                });
             }
         }
     });

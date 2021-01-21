@@ -30,14 +30,14 @@ export default class Register extends Component {
     onChangeLastName(event) {
         this.setState({ LastName: event.target.value });
     }
-    
+
     onChangeType(event) {
         this.setState({ type: event.target.value });
-        var vr =0;
+        var vr = 0;
         vr = 1 - this.state.usr;
         this.setState({ usr: vr });
     }
-    
+
     onChangePassword(event) {
         this.setState({ password: event.target.value });
     }
@@ -57,12 +57,18 @@ export default class Register extends Component {
             LastName: this.state.LastName,
             email: this.state.email,
             password: this.state.password,
-            date: Date.now()
+            date: Date.now(),
+            education:this.state.education,
+            skill:this.state.skill,
+            contact:this.state.contact,
+            bio:this.state.bio
+            
         }
         axios.post('http://localhost:4000/user/register', newUser)
-            .then(res => { alert("User " + res.data.FirstName+" "+ res.data.LastName+"Created ");
-            //  console.log(res.data)
-             })
+            .then(res => {
+                alert("User " + res.data.FirstName + " " + res.data.LastName + "Created ");
+                //  console.log(res.data)
+            })
             ;
 
         this.setState({
@@ -82,13 +88,14 @@ export default class Register extends Component {
                 <form onSubmit={this.onSubmit}>
                     <div className="form-group">
                         <label>Email: </label>
-                        <input type="text"
+                        <input type="email"
+                            placeholder="Enter Email"
                             className="form-control"
                             value={this.state.email}
                             onChange={this.onChangeEmail}
                         />
                     </div>
-                    
+
                     <div className="form-group">
                         <label>Type: </label>
                         <select className="form-control"
@@ -101,6 +108,7 @@ export default class Register extends Component {
                     <div className="form-group">
                         <label>FirstName: </label>
                         <input type="text"
+                            placeholder="First Name"
                             className="form-control"
                             value={this.state.FirstName}
                             onChange={this.onChangeFirstName}
@@ -109,6 +117,8 @@ export default class Register extends Component {
                     <div className="form-group">
                         <label>LastName: </label>
                         <input type="text"
+                            placeholder="Last Name"
+
                             className="form-control"
                             value={this.state.LastName}
                             onChange={this.onChangeLastName}
@@ -119,6 +129,7 @@ export default class Register extends Component {
                     <div className="form-group">
                         <label>Password: </label>
                         <input type="password"
+                            placeholder="Password"
                             className="form-control"
                             value={this.state.password}
                             onChange={this.onChangePassword}

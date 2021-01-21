@@ -2,60 +2,6 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 // Create Schema
-const UserSchema = new Schema({
-	FirstName: {
-		type: String,
-		required: true
-	},
-	LastName: {
-		type: String,
-		required: true
-	},
-	email: {
-		type: String,
-		unique: true,
-		required: true
-	},
-	date: {
-		type: Date,
-		required: false
-	},
-	type: {
-		type: String,
-		required: true
-	},
-	password:
-	{
-		type: String,
-		required: true
-	}
-});
-const recruiter = new Schema({
-
-	bio: {
-		type: String,
-		maxlength: 250,
-		required: true,
-
-	},
-	contact: {
-		type: Number,
-		required: true,
-		maxlength: 10
-	}
-});
-
-const jobapplicant = new Schema({
-	education: {
-		type: Array,
-		required: true
-	},
-	skill: {
-		type: Array,
-		required: true
-	}
-
-});
 
 const jobdetails = new Schema({
 	title: {
@@ -113,4 +59,4 @@ const jobdetails = new Schema({
 });
 
 
-module.exports = User = mongoose.model("Users", UserSchema);
+module.exports = Jobdetails = mongoose.model("Jobdetails", jobdetails);
