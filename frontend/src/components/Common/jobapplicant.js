@@ -81,7 +81,7 @@ export default class Applicant extends Component {
     render() {
         return (
             <div>
-                
+
 
                 <div className="form-group">
                     <div>
@@ -100,7 +100,7 @@ export default class Applicant extends Component {
                     </div>
                     {this.state.education.map((obj, id) => {
                         return (
-                            <div>
+                            <div style={{ border: "2px solid black", padding: "10px" }}>
                                 <div>
                                     <h3>
                                         Name of Institute :
@@ -182,7 +182,7 @@ export default class Applicant extends Component {
                         )
                     })}
                 </div>
-                <div className="form-group">
+                <div className="form-group" >
                     <label>Skill: </label>
                     <div>
 

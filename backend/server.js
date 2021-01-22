@@ -15,9 +15,11 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // Connection to MongoDB
-mongoose.connect('mongodb://127.0.0.1:27017/' + DB_NAME, { useNewUrlParser: true });
+mongoose.connect('mongodb://127.0.0.1:27017/' + DB_NAME, { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.set('useFindAndModify', false);
+mongoose.set('useCreateIndex', true);
 const connection = mongoose.connection;
-connection.once('open', function() {
+connection.once('open', function () {
     console.log("MongoDB database connection established successfully !");
 })
 
@@ -25,6 +27,6 @@ connection.once('open', function() {
 app.use("/testAPI", testAPIRouter);
 app.use("/user", UserRouter);
 
-app.listen(PORT, function() {
+app.listen(PORT, function () {
     console.log("Server is running on Port: " + PORT);
 });
