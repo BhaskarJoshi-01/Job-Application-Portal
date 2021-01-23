@@ -14,16 +14,39 @@ export default class Register extends Component {
             email: '',
             password: '',
             date: null,
-            usr: true
+            usr: true,
+            skill:[],
+            education:[],
+            bio:'',
+            contact: ''
         }
         this.onChangeEmail = this.onChangeEmail.bind(this);
         this.onChangePassword = this.onChangePassword.bind(this);
         this.onChangeType = this.onChangeType.bind(this);
+        // this.onChangeContact = this.onChangeContact.bind(this);
+        this.onChangeContact = this.onChangeContact.bind(this);
+        this.onChangeBio = this.onChangeBio.bind(this);
         this.onChangeFirstName = this.onChangeFirstName.bind(this);
         this.onChangeLastName = this.onChangeLastName.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
+        this.onChangeEducation = this.onChangeEducation.bind(this);
+        this.onChangeSkill = this.onChangeSkill.bind(this);
+        this.onDeleteEducation = this.onDeleteEducation.bind(this);
+        this.onDeleteSkill = this.onDeleteSkill.bind(this);
+        this.onAddEducation = this.onAddEducation.bind(this);
+        this.onAddSkill = this.onAddSkill.bind(this);
+
     }
 
+    // onChangeContact(newcontact) {
+    //     this.setState({ contact: newcontact });
+    // }
+    onChangeContact(event) {
+        this.setState({ contact: event.target.value });
+    }
+    onChangeBio(event) {
+        this.setState({ bio: event.target.value });
+    }
     onChangeFirstName(event) {
         this.setState({ FirstName: event.target.value });
     }
@@ -45,6 +68,64 @@ export default class Register extends Component {
     onChangeEmail(event) {
         this.setState({ email: event.target.value });
     }
+    onChangeEducation(index, obj) {
+
+        this.setState({
+
+            education: this.state.education.map((obj1, index1) => {
+                return index === index1 ? obj : obj1;
+            }),
+        });
+    }
+
+    onAddEducation(obj) {
+        this.setState({
+
+            education: [...this.state.education, obj],
+
+        });
+// console.log("inside on Addedu")
+    }
+
+    onDeleteEducation(index) {
+        this.setState({
+
+            education: this.state.education.filter((obj1, index1) =>
+                index1 !== index
+
+            ),
+        });
+
+    }
+    onChangeSkill(index, obj) {
+
+        this.setState({
+
+            skill: this.state.skill.map((obj1, index1) => {
+                return index === index1 ? obj : obj1;
+            }),
+        });
+    }
+
+    onAddSkill(obj) {
+        this.setState({
+
+            skill: [...this.state.skill, obj],
+
+        });
+
+    }
+
+    onDeleteSkill(index) {
+        this.setState({
+
+            skill: this.state.skill.filter((obj1, index1) =>
+                index1 !== index
+
+            ),
+        });
+
+    }
 
 
 
@@ -63,6 +144,7 @@ export default class Register extends Component {
             contact: this.state.contact,
             bio: this.state.bio
         }
+        console.log(newUser);
         axios.post('http://localhost:4000/user/register', newUser)
             .then(res => {
                 alert("User " + res.data.FirstName + " " + res.data.LastName + " Created ");
@@ -75,6 +157,7 @@ export default class Register extends Component {
                     alert("You are already registered!");
                 }
             });
+        
 
         this.setState({
             type: 'JobApplicant',
@@ -164,8 +247,14 @@ export default class Register extends Component {
 
                         {!usr
                             ?
-                            <Recruiter />
-                            : <Applicant />
+                            <Recruiter contactChange={this.onChangeContact} changeBio={this.onChangeBio} contact={this.state.contact} bio={this.state.bio}/>
+                            : <Applicant educationChange={this.onChangeEducation} 
+                            educationDelete={this.onDeleteEducation}
+                            educationAdd={this.onAddEducation}
+                            changeSkill={this.onChangeSkill}
+                            skillDelete={this.onDeleteSkill}
+                            skillAdd={this.onAddSkill}
+                            education={this.state.education} skill={this.state.skill} />
                         }
                     </div>
                     <div className="form-group">

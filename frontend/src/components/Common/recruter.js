@@ -15,17 +15,17 @@ export default class Recruiter extends Component {
         // this.onChangeEmail = this.onChangeEmail.bind(this);
         // this.onChangePassword = this.onChangePassword.bind(this);
         // this.onChangeType = this.onChangeType.bind(this);
-        this.onChangeContact = this.onChangeContact.bind(this);
-        this.onChangeBio = this.onChangeBio.bind(this);
+        // this.onChangeContact = this.onChangeContact.bind(this);
+        // this.onChangeBio = this.onChangeBio.bind(this);
         // this.onSubmit = this.onSubmit.bind(this);
     }
 
-    onChangeContact(event) {
-        this.setState({ contact: event.target.value });
-    }
-    onChangeBio(event) {
-        this.setState({ bio: event.target.value });
-    }
+    // onChangeContact(event) {
+    //     this.setState({ contact: event.target.value });
+    // }
+    // onChangeBio(event) {
+    //     this.setState({ bio: event.target.value });
+    // }
 
     render() {
         return (
@@ -39,8 +39,9 @@ export default class Recruiter extends Component {
                         placeholder="Phone-Number"
                         pattern="[0-9]{10}"
                         className="form-control"
-                        value={this.state.contact}
-                        onChange={this.onChangeContact}
+                        value={this.props.contact}
+                        onChange={this.props.contactChange}
+                        // onChange={e=>console.log(e.target.value)}
                     />
                 </div>
                 <div className="form-group">
@@ -51,8 +52,8 @@ export default class Recruiter extends Component {
                     <textarea
                         className="form-control"
                         maxLength="250"
-                        value={this.state.bio}
-                        onChange={this.onChangeBio}
+                        value={this.props.bio}
+                        onChange={this.props.changeBio}
                     />
                 </div>
 

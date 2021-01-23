@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-
+import { BrowserRouter, Redirect, Route } from 'react-router-dom'
 export default class Login extends Component {
 
     constructor(props) {
@@ -9,7 +9,9 @@ export default class Login extends Component {
         this.state = {
             email: '',
             password: '',
-            date: null
+            date: null,
+            gotoprofile: false,
+            type:''
         }
 
         this.onChangeEmail = this.onChangeEmail.bind(this);
@@ -31,12 +33,15 @@ export default class Login extends Component {
         const newUser = {
             email: this.state.email,
             password: this.state.password,
-            date: Date.now()
+            date: Date.now(),
         }
         axios.post('http://localhost:4000/user/login', newUser)
             .then(res => {
-                alert("Login successful\t"); 
-
+                alert("Login successful\t");
+                this.setState({
+                    gotoprofile: true,
+                    type:res.data
+                })
             })
             .catch(err => {
                 if (err.response.status === 400) {
@@ -46,15 +51,27 @@ export default class Login extends Component {
                     alert("Password Incorrect ! ");
                 }
             });
+            // this.setState({
+            //     gotoprofile: true
+            // })
 
-        this.setState({
-            email: '',
-            password: '',
-            date: null
-        });
+        // this.setState({
+        //     email: '',
+        //     password: '',
+        //     date: null
+        // });
     }
 
     render() {
+        if (this.state.gotoprofile) {
+            var id = this.state.email;
+            // console.log(id);
+            if(this.state.type==='Recruiter')
+            return <Redirect to={`/profile/recruiter/${id}`} />
+            if(this.state.type=='JobApplicant')
+            return <Redirect to={`/profile/applicant/${id}`} />
+
+        }
         return (
             <div>
                 <form onSubmit={this.onSubmit}>
@@ -76,6 +93,7 @@ export default class Login extends Component {
                             onChange={this.onChangePassword}
                         />
                     </div>
+
                     <div className="form-group">
                         <input type="submit" value="Login" className="btn btn-primary" />
                     </div>

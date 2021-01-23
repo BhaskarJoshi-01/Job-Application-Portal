@@ -27,6 +27,14 @@ connection.once('open', function () {
 app.use("/testAPI", testAPIRouter);
 app.use("/user", UserRouter);
 
+// app.get("/profile", function (req, res) {
+//     // console.log("ishere");
+//     res.json({email:"a@a.com"});
+// });
+// app.post("/profile", function (req, res) {
+//     // console.log(req.body);
+//     res.send("ok");
+// });
 app.listen(PORT, function () {
     console.log("Server is running on Port: " + PORT);
 });

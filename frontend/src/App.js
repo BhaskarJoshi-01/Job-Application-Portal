@@ -7,7 +7,8 @@ import Home from './components/Common/Home'
 import Login from './components/Common/Login'
 import Register from './components/Common/Register'
 import Navbar from './components/templates/Navbar'
-import Profile from './components/Users/Profile'
+import RecruiterProfile from './components/Recruiter/profile'
+import JobApplicantProfile from './components/JobApplicant/profile'
 
 function App() {
   return (
@@ -19,7 +20,9 @@ function App() {
         <Route path="/users" exact component={UsersList}/>
         <Route path="/login" component={Login}/>
         <Route path="/register" component={Register}/>
-        <Route path="/profile" component={Profile}/>
+        <Route path="/profile/recruiter/:id" name="profileid" component={RecruiterProfile} />
+        <Route path="/profile/applicant/:id" name="profileid" component={JobApplicantProfile} />
+
       </div>
     </Router>
   );

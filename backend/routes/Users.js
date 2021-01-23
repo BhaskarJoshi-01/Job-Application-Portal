@@ -26,6 +26,7 @@ router.get("/", function (req, res) {
 
 router.post("/register", (req, res) => {
     const email = req.body.email;
+    console.log(req.body);
     User.findOne({ email }).then(user => {
         if (!user) {
             const newUser = new User({
@@ -37,7 +38,7 @@ router.post("/register", (req, res) => {
                 type: req.body.type,
                 password: req.body.password
             });
-
+            console.log(user);
             if (req.body.type == 'Recruiter') {
                 newUser.contact = req.body.contact
             }
@@ -45,12 +46,10 @@ router.post("/register", (req, res) => {
                 newUser.education = req.body.education
 
             }
-            if (req.body.type == 'JobApplicant') 
-            {
+            if (req.body.type == 'JobApplicant') {
                 newUser.skill = req.body.skill
             }
-            else 
-            {
+            else {
                 newUser.bio = req.body.bio
             }
             newUser.save()
@@ -64,6 +63,31 @@ router.post("/register", (req, res) => {
         else {
             return res.status(404).json({
                 error: "You already have  an account :/ ",
+            });
+        }
+    });
+});
+
+
+router.post("/profileedit", (req, res) => {
+    const email = req.body.email;
+    User.findOne({ email }).then(user => {
+        if (user) {
+            for (const key in req.body) {
+                user[key]=req.body[key];
+            }
+            console.log(user);
+            user.save()
+                .then(user => {
+                    res.status(200).json(user);
+                })
+                .catch(err => {
+                    res.status(400).send(err);
+                });
+        }
+        else {
+            return res.status(404).json({
+                error: "You don't have  an account :/ ",
             });
         }
     });
@@ -87,8 +111,8 @@ router.post("/login", (req, res) => {
 
         else {
             if (user.password == password) {
-                res.send("Email Found");
-                return user;
+                // res.send("Email Found");
+                return res.json(user.type);
             }
             else {
 

@@ -8,75 +8,75 @@ export default class Applicant extends Component {
 
         this.state = {
             education: [],
-            skill: [],
+            skill: []
         }
-        this.onChangeEducation = this.onChangeEducation.bind(this);
-        this.onChangeSkill = this.onChangeSkill.bind(this);
-        this.onDeleteEducation = this.onDeleteEducation.bind(this);
-        this.onDeleteSkill = this.onDeleteSkill.bind(this);
-        this.onAddEducation = this.onAddEducation.bind(this);
-        this.onAddSkill = this.onAddSkill.bind(this);
+        // this.onChangeEducation = this.onChangeEducation.bind(this);
+        // this.onChangeSkill = this.onChangeSkill.bind(this);
+        // this.onDeleteEducation = this.onDeleteEducation.bind(this);
+        // this.onDeleteSkill = this.onDeleteSkill.bind(this);
+        // this.onAddEducation = this.onAddEducation.bind(this);
+        // this.onAddSkill = this.onAddSkill.bind(this);
 
     }
 
-    onChangeEducation(index, obj) {
+    // onChangeEducation(index, obj) {
 
-        this.setState({
+    //     this.setState({
 
-            education: this.state.education.map((obj1, index1) => {
-                return index === index1 ? obj : obj1;
-            }),
-        });
-    }
+    //         education: this.state.education.map((obj1, index1) => {
+    //             return index === index1 ? obj : obj1;
+    //         }),
+    //     });
+    // }
 
-    onAddEducation(obj) {
-        this.setState({
+    // onAddEducation(obj) {
+    //     this.setState({
 
-            education: [...this.state.education, obj],
+    //         education: [...this.state.education, obj],
 
-        });
+    //     });
 
-    }
+    // }
 
-    onDeleteEducation(index) {
-        this.setState({
+    // onDeleteEducation(index) {
+    //     this.setState({
 
-            education: this.state.education.filter((obj1, index1) =>
-                index1 !== index
+    //         education: this.state.education.filter((obj1, index1) =>
+    //             index1 !== index
 
-            ),
-        });
+    //         ),
+    //     });
 
-    }
-    onChangeSkill(index, obj) {
+    // }
+    // onChangeSkill(index, obj) {
 
-        this.setState({
+    //     this.setState({
 
-            skill: this.state.skill.map((obj1, index1) => {
-                return index === index1 ? obj : obj1;
-            }),
-        });
-    }
+    //         skill: this.state.skill.map((obj1, index1) => {
+    //             return index === index1 ? obj : obj1;
+    //         }),
+    //     });
+    // }
 
-    onAddSkill(obj) {
-        this.setState({
+    // onAddSkill(obj) {
+    //     this.setState({
 
-            skill: [...this.state.skill, obj],
+    //         skill: [...this.state.skill, obj],
 
-        });
+    //     });
 
-    }
+    // }
 
-    onDeleteSkill(index) {
-        this.setState({
+    // onDeleteSkill(index) {
+    //     this.setState({
 
-            skill: this.state.skill.filter((obj1, index1) =>
-                index1 !== index
+    //         skill: this.state.skill.filter((obj1, index1) =>
+    //             index1 !== index
 
-            ),
-        });
+    //         ),
+    //     });
 
-    }
+    // }
 
     render() {
         return (
@@ -92,13 +92,15 @@ export default class Applicant extends Component {
                             style={{ margin: "8px" }}
                             onClick={(e) => {
                                 e.preventDefault();
-                                this.onAddEducation("");
+                                this.props.educationAdd("");
+
+                                console.log("clicked");
                             }}
                         >
                             Add
                         </button>
                     </div>
-                    {this.state.education.map((obj, id) => {
+                    {this.props.education.map((obj, id) => {
                         return (
                             <div style={{ border: "2px solid black", padding: "10px" }}>
                                 <div>
@@ -112,7 +114,7 @@ export default class Applicant extends Component {
                                         value={obj.institute}
                                         onChange={(e) => {
                                             e.preventDefault();
-                                            this.onChangeEducation(id, {
+                                            this.props.educationChange(id, {
                                                 ...obj,
                                                 institute: e.target.value,
                                             });
@@ -135,7 +137,7 @@ export default class Applicant extends Component {
                                         value={obj.startYear}
                                         onChange={(e) => {
                                             e.preventDefault();
-                                            this.onChangeEducation(id, {
+                                            this.props.educationChange(id, {
                                                 ...obj,
                                                 startYear: e.target.value,
                                             });
@@ -158,7 +160,7 @@ export default class Applicant extends Component {
                                         value={obj.endYear}
                                         onChange={(e) => {
                                             e.preventDefault();
-                                            this.onChangeEducation(id, {
+                                            this.props.educationChange(id, {
                                                 ...obj,
                                                 endYear: e.target.value,
                                             });
@@ -171,7 +173,7 @@ export default class Applicant extends Component {
                                         style={{ marginTop: "8px" }}
                                         onClick={(e) => {
                                             e.preventDefault();
-                                            this.onDeleteEducation(id);
+                                            this.props.educationDelete(id);
                                         }}
                                     >
                                         Delete
@@ -190,22 +192,22 @@ export default class Applicant extends Component {
                             style={{ marginLeft: "8px" }}
                             onClick={(e) => {
                                 e.preventDefault();
-                                this.onAddSkill("");
+                                this.props.skillAdd("");
                             }}
                         >
                             Add
                     </button>
                     </div>
-                    {this.state.skill.map((obj, id) => {
+                    {this.props.skill.map((obj, id) => {
                         return (
                             <div>
                                 <label>Language: </label>
                                 <input
                                     required
-                                    value={obj.langugage}
+                                    value={obj.language}
                                     onChange={(e) => {
                                         e.preventDefault();
-                                        this.onChangeEducation(id, {
+                                        this.props.changeSkill(id, {
                                             ...obj,
                                             language: e.target.value,
                                         });
@@ -219,7 +221,7 @@ export default class Applicant extends Component {
                                         style={{ marginTop: "8px" }}
                                         onClick={(e) => {
                                             e.preventDefault();
-                                            this.onDeleteSkill(id);
+                                            this.props.skillDelete(id);
                                         }}
                                     >
                                         Delete
