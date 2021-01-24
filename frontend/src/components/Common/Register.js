@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import Recruiter from './recruter'
 import Applicant from './jobapplicant'
+import Navbar from '../templates/Navbar'
 export default class Register extends Component {
 
     constructor(props) {
@@ -15,9 +16,9 @@ export default class Register extends Component {
             password: '',
             date: null,
             usr: true,
-            skill:[],
-            education:[],
-            bio:'',
+            skill: [],
+            education: [],
+            bio: '',
             contact: ''
         }
         this.onChangeEmail = this.onChangeEmail.bind(this);
@@ -84,7 +85,7 @@ export default class Register extends Component {
             education: [...this.state.education, obj],
 
         });
-// console.log("inside on Addedu")
+        // console.log("inside on Addedu")
     }
 
     onDeleteEducation(index) {
@@ -157,7 +158,7 @@ export default class Register extends Component {
                     alert("You are already registered!");
                 }
             });
-        
+
 
         this.setState({
             type: 'JobApplicant',
@@ -179,6 +180,7 @@ export default class Register extends Component {
         const usr = this.state.usr;
         return (
             <div>
+                <Navbar />
                 <form onSubmit={this.onSubmit}>
                     <div className="form-group">
                         <div>
@@ -247,14 +249,14 @@ export default class Register extends Component {
 
                         {!usr
                             ?
-                            <Recruiter contactChange={this.onChangeContact} changeBio={this.onChangeBio} contact={this.state.contact} bio={this.state.bio}/>
-                            : <Applicant educationChange={this.onChangeEducation} 
-                            educationDelete={this.onDeleteEducation}
-                            educationAdd={this.onAddEducation}
-                            changeSkill={this.onChangeSkill}
-                            skillDelete={this.onDeleteSkill}
-                            skillAdd={this.onAddSkill}
-                            education={this.state.education} skill={this.state.skill} />
+                            <Recruiter contactChange={this.onChangeContact} changeBio={this.onChangeBio} contact={this.state.contact} bio={this.state.bio} />
+                            : <Applicant educationChange={this.onChangeEducation}
+                                educationDelete={this.onDeleteEducation}
+                                educationAdd={this.onAddEducation}
+                                changeSkill={this.onChangeSkill}
+                                skillDelete={this.onDeleteSkill}
+                                skillAdd={this.onAddSkill}
+                                education={this.state.education} skill={this.state.skill} />
                         }
                     </div>
                     <div className="form-group">

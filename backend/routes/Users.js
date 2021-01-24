@@ -4,7 +4,6 @@ var router = express.Router();
 // Load User model
 const User = require("../models/Users");
 const Jobdetails = require("../models/Jobdetails");
-// const { default: Applicant } = require("../../frontend/src/components/Common/jobapplicant");
 
 
 // GET request 
@@ -68,13 +67,64 @@ router.post("/register", (req, res) => {
     });
 });
 
+router.post("/jobcreating", (req, res) => {
+    const title = req.body.title;
+    console.log(req.body);
+    console.log("hi");
+    Jobdetails.findOne({ title }).then(job => {
+        if (!job) {
+            const newJobdetail = new Jobdetails({
+
+                title: req.body.title,
+                recruiterid: req.body.recruiterid,
+                recruitername: req.body.recruitername,
+                maxapplicant: req.body.maxapplicant,
+                positions: req.body.positions,
+                postingdate: req.body.postingdate,
+                deadlinedate: req.body.deadlinedate,
+                requiredskills: req.body.requiredskills,
+                typeofjob: req.body.typeofjob,
+                duration: req.body.duration,
+                salary: req.body.salary,
+                rating: req.body.rating
+            });
+            
+            newJobdetail.save()
+                .then(user => {
+                    res.status(200).json(user);
+                })
+                .catch(err => {
+                    console.log(err);
+                    res.status(400).send(err);
+                });
+        }
+        else {
+            return res.status(404).json({
+                error: "You already have  an account :/ ",
+            });
+        }
+    });
+});
+
+
+
+
+router.get("/job", function (req, res) {
+    Jobdetails.find(function (err, job) {
+        if (err) {
+            console.log(err);
+        } else {
+            res.json(job);
+        }
+    })
+});
 
 router.post("/profileedit", (req, res) => {
     const email = req.body.email;
     User.findOne({ email }).then(user => {
         if (user) {
             for (const key in req.body) {
-                user[key]=req.body[key];
+                user[key] = req.body[key];
             }
             console.log(user);
             user.save()

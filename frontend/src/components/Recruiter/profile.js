@@ -1,7 +1,8 @@
 import React, { useState, useEffect, Component } from 'react';
 import axios from 'axios';
+import {RecruiterNavBar} from '../templates/Navbar'
 
-class RecruiterProfile extends Component {
+class  RecruiterProfile  extends Component  {
 
     constructor(props) {
         super(props);
@@ -79,6 +80,7 @@ class RecruiterProfile extends Component {
         return (
 
             <div>
+                <RecruiterNavBar/>
                 <form onSubmit={this.onSubmit}>
                     <div className="form-group">
                         <div>

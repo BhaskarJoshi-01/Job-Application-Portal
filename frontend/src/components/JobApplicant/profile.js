@@ -1,5 +1,6 @@
 import React, { useState, useEffect, Component } from 'react';
 import axios from 'axios';
+import {ApplicantNavBar} from '../templates/Navbar'
 
 class JobApplicantProfile extends Component {
 
@@ -143,6 +144,7 @@ onSubmit(e)
         return (
 
             <div>
+                <ApplicantNavBar/>
                 <form onSubmit={this.onSubmit}>
                     <div className="form-group">
                         <div>

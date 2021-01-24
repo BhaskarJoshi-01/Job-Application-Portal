@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { BrowserRouter, Redirect, Route } from 'react-router-dom'
+import Navbar from '../templates/Navbar'
+import ls from "local-storage"
+
 export default class Login extends Component {
 
     constructor(props) {
@@ -38,6 +41,7 @@ export default class Login extends Component {
         axios.post('http://localhost:4000/user/login', newUser)
             .then(res => {
                 alert("Login successful\t");
+                ls.set("currentuser", newUser.email);
                 this.setState({
                     gotoprofile: true,
                     type:res.data
@@ -74,6 +78,8 @@ export default class Login extends Component {
         }
         return (
             <div>
+                <Navbar />
+
                 <form onSubmit={this.onSubmit}>
                     <div className="form-group">
                         <label>Email: </label>

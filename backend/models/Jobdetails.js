@@ -10,7 +10,6 @@ const jobdetails = new Schema({
 	},
 	recruiterid: {
 		type: String,
-		unique: true,
 		required: true
 	},
 	recruitername: {
