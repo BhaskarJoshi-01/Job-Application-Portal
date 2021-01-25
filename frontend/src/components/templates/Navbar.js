@@ -71,8 +71,8 @@ function ApplicantNavBar() {
                                 <Link style={{ marginRight: "30px" }} to={"/profile/applicant/" + ls.get("currentuser") + "/jobapply"}  >
                                     View Job
                                 </Link>
-                                <Link style={{ marginRight: "30px" }} to={"/profile/applicant/" + ls.get("currentuser") + "/viewappliedjobs"}  >
-                                    My Applied Jobs
+                                <Link style={{ marginRight: "30px" }} to={"/profile/applicant/" + ls.get("currentuser") + "/viewappliedjob"}  >
+                                    My Applications
                                 </Link>
                             </Nav>
                         </Navbar.Collapse>

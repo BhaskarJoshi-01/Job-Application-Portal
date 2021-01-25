@@ -10,6 +10,8 @@ import Jobcreating from './components/Recruiter/jobcreating'
 import RecruiterProfile from './components/Recruiter/profile'
 import JobApplicantProfile from './components/JobApplicant/profile'
 import Jobapply from './components/JobApplicant/jobapply'
+import Jobview from './components/JobApplicant/jobview'
+
 function App() {
   return (
     <Router>
@@ -24,6 +26,7 @@ function App() {
         <Route path="/profile/applicant/:id" name="profileid" exact component={JobApplicantProfile} />
         <Route path="/profile/recruiter/:id/jobcreating" exact name="profileid"  component={Jobcreating} />
         <Route path="/profile/applicant/:id/jobapply" exact name="profileid"  component={Jobapply} />
+        <Route path="/profile/applicant/:id//viewappliedjob" exact name="profileid"  component={Jobview} />
 
       </div>
     </Router>

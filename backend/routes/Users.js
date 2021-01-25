@@ -117,20 +117,26 @@ router.post("/apply/:title", function (req, res) {
             });
         }
         else {
+            User.findOne({ email: req.body.applicant_id }).then(user => {
+                if(user.count>=10){
+                    return res.status(401).send("You have applied for  10 jobs! ");
+                }
+                job.application = [...job.application, req.body];
+
+                job.save()
+                    .then(job => {
+                        res.status(200).json(job);
+
+                        user.count = user.count + 1;
+                    user.save().then().catch(console.log);
+                    })
+                    .catch(err => {
+                        console.log(err);
+                        res.status(400).send(err);
+                    });
+            });
             // console.log(req.body);
-            job.application = [...job.application, req.body];
-            // for (const key in req.body) {
-            //     // job({application[key]: req.body[key]})
-            // }
-            // console.log(job)
-            job.save()
-                .then(job => {
-                    res.status(200).json(job);
-                })
-                .catch(err => {
-                    console.log(err);
-                    res.status(400).send(err);
-                });
+
         }
     })
         .catch(e => {
@@ -151,7 +157,7 @@ router.get("/job/:userid", function (req, res) {
                 job.applied = false;
                 // console.log(job.application);
                 for (const app of job.application) {
-                    
+
                     if (app && app.applicant_id == req.params.userid) {
                         job.applied = true;
                         break;

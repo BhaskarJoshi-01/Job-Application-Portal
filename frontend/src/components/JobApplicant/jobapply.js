@@ -124,13 +124,15 @@ class Jobapply extends Component {
                 })
                 .catch(err => {
                     if (err.response.status === 400) {
-
                         alert("Some error occured");
                     }
                     if (err.response.status === 404) {
                         alert("Already registered!");
                         // console.log(this.state.jobtitle);
 
+                    }
+                    if (err.response.status === 401) {
+                        alert("You have applied for 10 jobs!");
                     }
                 });
         }
