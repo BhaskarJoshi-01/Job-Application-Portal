@@ -65,7 +65,7 @@ function ApplicantNavBar() {
 
                         <Navbar.Collapse className="justify-content-end-md mt-xs-3" >
                             <Nav className="ml-auto">
-                                <Link to={"/profile/applicant/" + ls.get("currentuser")}  >
+                                <Link style={{marginRight:"30px"}} to={"/profile/applicant/" + ls.get("currentuser")}  >
                                     Profile
                                 </Link>
                                 <Link to={"/profile/applicant/" + ls.get("currentuser")+"/jobapply"}  >
@@ -110,7 +110,7 @@ function RecruiterNavBar() {
 
                         <Navbar.Collapse className="justify-content-end-md mt-xs-3" >
                             <Nav className="ml-auto">
-                            <Link to={"/profile/recruiter/" + ls.get("currentuser")}  >
+                            <Link style={{marginRight:"30px"}} to={"/profile/recruiter/" + ls.get("currentuser")}  >
                                     Profile
                                 </Link>
                                 <br>

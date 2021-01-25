@@ -146,10 +146,14 @@ onSubmit(e)
             <div>
                 <ApplicantNavBar/>
                 <form onSubmit={this.onSubmit}>
+                   
+
+
+                <div style={{border:"2px solid black", borderRadius:"20px",padding:"20px", margin:"10px"}}>
                     <div className="form-group">
                         <div>
 
-                            <h3>Email: </h3>
+                            <h3>Email:</h3>
                         </div>
                         <div>
 
@@ -158,15 +162,41 @@ onSubmit(e)
                                 className="form-control"
                                 value={this.state.email}
                                 onChange={this.onChangeEmail}
+
+                                readOnly
                             />
                         </div>
 
                     </div>
-
-
                     <div className="form-group">
                         <div>
-                            <label>Education: </label>
+
+                            <h3>FirstName: </h3>
+                        </div>
+
+                        <input type="text"
+                            placeholder="First Name"
+                            className="form-control"
+                            value={this.state.FirstName}
+                            onChange={this.onChangeFirstName}
+                        />
+                    </div>
+                    <div className="form-group">
+                        <h3>LastName: </h3>
+                        <input type="text"
+                            placeholder="Last Name"
+
+                            className="form-control"
+                            value={this.state.LastName}
+                            onChange={this.onChangeLastName}
+                        />
+                    </div>
+                    </div>
+
+
+                    <div className="form-group" style={{border:"2px solid black", borderRadius:"20px",padding:"20px", margin:"10px"}}>
+                        <div>
+                            <h3>Education: </h3>
                         </div>
                         <div>
                             <button
@@ -181,7 +211,7 @@ onSubmit(e)
                         </div>
                         {this.state.education.map((obj, id) => {
                             return (
-                                <div style={{ border: "2px solid black", padding: "10px" }}>
+                                <div style={{ border: "2px solid black", padding: "10px", margin:"5px" }}>
                                     <div>
                                         <h3>
                                             Name of Institute :
@@ -263,8 +293,8 @@ onSubmit(e)
                             )
                         })}
                     </div>
-                    <div className="form-group" >
-                        <label>Skill: </label>
+                    <div className="form-group" style={{border:"2px solid black", borderRadius:"20px",padding:"20px", margin:"10px"}} >
+                        <h3>Skill: </h3>
                         <div>
 
                             <button
@@ -312,31 +342,6 @@ onSubmit(e)
                             )
                         })}
                     </div>
-
-                    <div className="form-group">
-                        <div>
-
-                            <h3>FirstName: </h3>
-                        </div>
-
-                        <input type="text"
-                            placeholder="First Name"
-                            className="form-control"
-                            value={this.state.FirstName}
-                            onChange={this.onChangeFirstName}
-                        />
-                    </div>
-                    <div className="form-group">
-                        <h3>LastName: </h3>
-                        <input type="text"
-                            placeholder="Last Name"
-
-                            className="form-control"
-                            value={this.state.LastName}
-                            onChange={this.onChangeLastName}
-                        />
-                    </div>
-
 
                     <div className="form-group">
                         <input type="submit" value="Save" onSubmit={this.onSubmit} className="btn btn-primary" />

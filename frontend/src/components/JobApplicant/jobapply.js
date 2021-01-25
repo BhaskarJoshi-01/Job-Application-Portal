@@ -19,32 +19,75 @@ import InputAdornment from "@material-ui/core/InputAdornment";
 import SearchIcon from "@material-ui/icons/Search";
 import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
 import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
-
+import Fuse from 'fuse.js';
 
 class Jobapply extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            job: [], sortedUsers: [], sortName: true, sortName1: true,
-            tempjobs: [],
+            job: [], sortedUsers: [], sortName1: true,
+
             sortName2: true,
             sortName3: true,
             min: 0,
-            max: 0,
+            max: Infinity,
             job_type: ["Full Time", "Part Time", "WFH"],
             value_job_type: '',
-            duration: ['0', '1', '2', '3', '4', '5', '6', '7'],
+            duration: ['0', '1', '2', '3', '4', '5', '6'],
             value_duration: '',
+            query: '',
 
         };
         this.renderIcon = this.renderIcon.bind(this);
         this.sortChange = this.sortChange.bind(this);
         this.onChangeminmax = this.onChangeminmax.bind(this);
-
+        this.handleQuery = this.handleQuery.bind(this);
+        this.fuckoff = this.fuckoff.bind(this);
     }
 
 
+    handleQuery(event) {
+        this.setState({ query: event.target.value });
+    }
+
+    fuckoff(){
+        // console.log(this.state.sortedUsers);
+        // const fuse = new Fuse(this.state.job,{
+        //     keys: ['title']
+        // });
+        // var finaljob = fuse.search(this.state.query);
+        // this.state.job=[]
+        // finaljob.forEach(element => {
+        //     console.log(element.item);
+        //     this.state.job.push(element.item);            
+        // });
+
+        if(this.state.query===''){ 
+            this.setState({
+                sortedUsers: this.state.job
+            });
+        }
+        else{
+            const fuse = new Fuse(this.state.job,{
+                keys: ['title']
+            });
+            var finaljob = fuse.search(this.state.query);
+            var temp= [];
+            finaljob.forEach(element => {
+                console.log(element.item);
+                temp.push(element.item);            
+            });
+            
+            this.setState({
+                sortedUsers: temp             
+            });
+
+        }
+
+        
+        
+    }
 
 
     componentDidMount() {
@@ -102,17 +145,18 @@ class Jobapply extends Component {
          *      id => 2 == Duration
          *      id => 3 == Rating
          */
-        var array = this.state.job
+        var array = this.state.sortedUsers
         if (this.state.min.length > 0 || this.state.max.length > 0) {
             array = this.state.sortedUsers;
         }
         else {
-            array = this.state.job;
+            array = this.state.sortedUsers;
         }
         array.sort(function (a, b) {
             if (id === 1) {
                 return flag ? a.salary - b.salary : b.salary - a.salary;
-            } else {
+            }
+            else {
                 if (id === 2) {
                     return flag ? a.duration - b.duration : b.duration - a.duration;
                 } else {
@@ -144,7 +188,7 @@ class Jobapply extends Component {
         }
         if (this.state.max.length == 0 &&
             this.state.min.length == 0) {
-            array = this.state.job;
+            array = this.state.sortedUsers;
         }
     }
 
@@ -178,10 +222,12 @@ class Jobapply extends Component {
                                 id="standard-basic"
                                 label="Search"
                                 fullWidth={true}
+                                value={this.state.query}
+                                onChange={this.handleQuery}
                                 InputProps={{
                                     endAdornment: (
                                         <InputAdornment>
-                                            <IconButton>
+                                            <IconButton onClick={this.fuckoff}>
                                                 <SearchIcon />
                                             </IconButton>
                                         </InputAdornment>
@@ -260,8 +306,8 @@ class Jobapply extends Component {
                                 <TableHead>
                                     <TableRow>
                                         <TableCell> <Button onClick={() => { this.sortChange(this.state.sortName1, 1) }}>{this.renderIcon(this.state.sortName1)}</Button>Salary</TableCell>
-                                        <TableCell> <Button onClick={() => { this.sortChange(this.state.sortName2, 2) }}>{this.renderIcon(this.state.sortName2)}</Button>Rating</TableCell>
-                                        <TableCell> <Button onClick={() => { this.sortChange(this.state.sortName3, 3) }}>{this.renderIcon(this.state.sortName3)}</Button>Duration</TableCell>
+                                        <TableCell> <Button onClick={() => { this.sortChange(this.state.sortName3, 3) }}>{this.renderIcon(this.state.sortName2)}</Button>Rating</TableCell>
+                                        <TableCell> <Button onClick={() => { this.sortChange(this.state.sortName2, 2) }}>{this.renderIcon(this.state.sortName3)}</Button>Duration</TableCell>
                                         <TableCell>Email</TableCell>
                                         <TableCell>Recruiter Name</TableCell>
                                         <TableCell>Title</TableCell>

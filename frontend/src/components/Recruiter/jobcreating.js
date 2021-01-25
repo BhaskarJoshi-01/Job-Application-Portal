@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import {Row} from "react-bootstrap"
 import { RecruiterNavBar } from '../templates/Navbar'
+
+import ls from "local-storage"
+import {Link} from "react-router-dom"
+
 export default class Jobcreating extends Component {
 
     constructor(props) {
@@ -216,7 +221,7 @@ export default class Jobcreating extends Component {
                 <form onSubmit={this.onSubmit}>
                     <div className="form-group">
                         <div>
-                            <h3> Recruiter Email Id: </h3>
+                            <h3> Recruiter Email Id: (please give your current email) </h3>
                         </div>
                         <div>
 
@@ -230,9 +235,10 @@ export default class Jobcreating extends Component {
                         </div>
 
                     </div>
-                    <div className="form-group">
+                    <Row>
+                    <div className="form-group col">
                         <div>
-                            <h3> Job Title </h3>
+                            <h3> Job Title(unique) </h3>
                         </div>
                         <div>
 
@@ -246,120 +252,9 @@ export default class Jobcreating extends Component {
 
                     </div>
 
-                    <div className="form-group">
-                        <div>
-                            <h3> Recruiter Name: </h3>
-                        </div>
-                        <div>
 
-                            <input type="text"
-                                placeholder="Enter Recruiter Name"
-                                className="form-control"
-                                value={this.state.recruitername}
-                                onChange={this.onChangeRecruiterName}
-                            />
-                        </div>
 
-                    </div>
-                    <div className="form-group">
-                        <div>
-                            <h3> Total Applicants : </h3>
-                        </div>
-                        <div>
-
-                            <input type="number"
-                                placeholder="Max Applicants"
-                                className="form-control"
-                                value={this.state.maxapplicant}
-                                onChange={this.onChangeMaxApplicant}
-                            />
-                        </div>
-
-                    </div>
-
-                    <div className="form-group">
-                        <div>
-                            <h3> Total Positions: </h3>
-                        </div>
-                        <div>
-
-                            <input type="number"
-                                // min="0"
-                                required
-                                placeholder="Enter Total Positions"
-                                className="form-control"
-                                value={this.state.positions}
-                                onChange={this.onChangePositions}
-                            />
-                        </div>
-
-                    </div>
-                    <div className="form-group">
-                        <div>
-                            <h3> Posting Date: </h3>
-                        </div>
-                        <div>
-
-                            <input type="date"
-                                placeholder="Enter date of posting"
-                                className="form-control"
-                                value={this.state.postingdate}
-                                onChange={this.onChangePostingdate}
-                            />
-                        </div>
-
-                    </div>
-
-                    <div className="form-group">
-                        <div>
-                            <h3> Deadline: </h3>
-                        </div>
-                        <div>
-
-                            <input type="datetime-local"
-                                placeholder="Enter Deadline"
-                                className="form-control"
-                                value={this.state.deadlinedate}
-                                onChange={this.onChangeDeadlinedate}
-                            />
-                        </div>
-
-                    </div>
-
-                    <div className="form-group">
-                        <div>
-                            <h3>Type of Job: </h3>
-                        </div>
-
-                        <select className="form-control"
-                            value={this.state.typeofjob}
-                            onChange={this.onChangeTypeofJob}>
-                            <option value="Part Time">Part Time </option>
-                            <option value="Full Time">Full Time </option>
-                            <option value="WFH">WFH </option>
-
-                        </select>
-                    </div>
-
-                    <div className="form-group">
-                        <div>
-                            <h3> Duration in months: </h3>
-                        </div>
-                        <div>
-
-                            <input type="number"
-                                min="0"
-                                max="6"
-                                placeholder="Enter Duration"
-                                className="form-control"
-                                value={this.state.duration}
-                                onChange={this.onChangeDuration}
-                            />
-                        </div>
-
-                    </div>
-
-                    <div className="form-group">
+                    <div className="form-group col">
                         <div>
                             <h3> Salary: </h3>
                         </div>
@@ -377,8 +272,131 @@ export default class Jobcreating extends Component {
 
                     </div>
 
-                    <div className="form-group" >
-                        <label>Skills Required : </label>
+                    </Row>
+
+                    <Row>
+
+                    <div className="form-group col">
+                        <div>
+                            <h3> Recruiter Name: </h3>
+                        </div>
+                        <div>
+
+                            <input type="text"
+                                placeholder="Enter Recruiter Name"
+                                className="form-control"
+                                value={this.state.recruitername}
+                                onChange={this.onChangeRecruiterName}
+                            />
+                        </div>
+
+                    </div>
+                    <div className="form-group col">
+                        <div>
+                            <h3> Total Applicants : </h3>
+                        </div>
+                        <div>
+
+                            <input type="number"
+                                placeholder="Max Applicants"
+                                className="form-control"
+                                value={this.state.maxapplicant}
+                                onChange={this.onChangeMaxApplicant}
+                            />
+                        </div>
+
+                    </div>
+
+                    </Row>
+                    <Row>
+
+                    <div className="form-group col">
+                        <div>
+                            <h3> Total Positions: </h3>
+                        </div>
+                        <div>
+
+                            <input type="number"
+                                // min="0"
+                                required
+                                placeholder="Enter Total Positions"
+                                className="form-control"
+                                value={this.state.positions}
+                                onChange={this.onChangePositions}
+                            />
+                        </div>
+
+                    </div>
+                    <div className="form-group col">
+                        <div>
+                            <h3> Posting Date: </h3>
+                        </div>
+                        <div>
+
+                            <input type="date"
+                                placeholder="Enter date of posting"
+                                className="form-control"
+                                value={this.state.postingdate}
+                                onChange={this.onChangePostingdate}
+                            />
+                        </div>
+
+                    </div>
+                    </Row>
+                    <Row>
+
+                    <div className="form-group col">
+                        <div>
+                            <h3> Deadline: </h3>
+                        </div>
+                        <div>
+
+                            <input type="datetime-local"
+                                placeholder="Enter Deadline"
+                                className="form-control"
+                                value={this.state.deadlinedate}
+                                onChange={this.onChangeDeadlinedate}
+                            />
+                        </div>
+
+                    </div>
+
+                    <div className="form-group col">
+                        <div>
+                            <h3>Type of Job: </h3>
+                        </div>
+
+                        <select className="form-control"
+                            value={this.state.typeofjob}
+                            onChange={this.onChangeTypeofJob}>
+                            <option value="Part Time">Part Time </option>
+                            <option value="Full Time">Full Time </option>
+                            <option value="WFH">WFH </option>
+
+                        </select>
+                    </div>
+                    </Row>
+
+                    <div className="form-group">
+                        <div>
+                            <h3> Duration in months: (0 (indefinite) - 6 months)</h3>
+                        </div>
+                        <div>
+
+                            <input type="number"
+                                min="0"
+                                max="6"
+                                placeholder="Enter Duration"
+                                className="form-control"
+                                value={this.state.duration}
+                                onChange={this.onChangeDuration}
+                            />
+                        </div>
+
+                    </div>
+
+                    <div className="form-group" style={{ border:"2px solid black" ,borderRadius:"10px" ,padding:"20px" }} >
+                        <h2>Skills Required : </h2>
                         <div>
 
                             <button

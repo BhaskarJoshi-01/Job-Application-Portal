@@ -81,7 +81,9 @@ class  RecruiterProfile  extends Component  {
 
             <div>
                 <RecruiterNavBar/>
+
                 <form onSubmit={this.onSubmit}>
+                <div style={{border:"2px solid black", borderRadius:"20px",padding:"20px", margin:"10px"}}>
                     <div className="form-group">
                         <div>
 
@@ -94,11 +96,36 @@ class  RecruiterProfile  extends Component  {
                                 className="form-control"
                                 value={this.state.email}
                                 onChange={this.onChangeEmail}
+                                readOnly
                             />
                         </div>
 
                     </div>
+                    <div className="form-group">
+                        <div>
 
+                            <h3>FirstName: </h3>
+                        </div>
+
+                        <input type="text"
+                            placeholder="First Name"
+                            className="form-control"
+                            value={this.state.FirstName}
+                            onChange={this.onChangeFirstName}
+                        />
+                    </div>
+                    <div className="form-group">
+                        <h3>LastName: </h3>
+                        <input type="text"
+                            placeholder="Last Name"
+
+                            className="form-control"
+                            value={this.state.LastName}
+                            onChange={this.onChangeLastName}
+                        />
+                    </div>
+                    </div>
+                    <div style={{border:"2px solid black", borderRadius:"20px",padding:"20px", margin:"10px"}}>
 
                     <div className="form-group">
                         <div>
@@ -124,30 +151,8 @@ class  RecruiterProfile  extends Component  {
                             onChange={this.onChangeBio}
                         />
                     </div>
-
-                    <div className="form-group">
-                        <div>
-
-                            <h3>FirstName: </h3>
-                        </div>
-
-                        <input type="text"
-                            placeholder="First Name"
-                            className="form-control"
-                            value={this.state.FirstName}
-                            onChange={this.onChangeFirstName}
-                        />
-                    </div>
-                    <div className="form-group">
-                        <h3>LastName: </h3>
-                        <input type="text"
-                            placeholder="Last Name"
-
-                            className="form-control"
-                            value={this.state.LastName}
-                            onChange={this.onChangeLastName}
-                        />
-                    </div>
+                </div>
+                    
 
 
                     <div className="form-group">
