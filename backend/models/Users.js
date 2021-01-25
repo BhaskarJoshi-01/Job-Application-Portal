@@ -47,8 +47,11 @@ const UserSchema = new Schema({
 		type: Number,
 		required: false,
 		maxlength: 10
+	},
+	count: {
+		type: Number,
+		default: 0
 	}
-
 });
 
 

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import axios from 'axios';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
@@ -20,7 +20,8 @@ import SearchIcon from "@material-ui/icons/Search";
 import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
 import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
 import Fuse from 'fuse.js';
-
+import { ApplicantNavBar } from '../templates/Navbar'
+import ls from 'local-storage'
 class Jobapply extends Component {
 
     constructor(props) {
@@ -37,13 +38,48 @@ class Jobapply extends Component {
             duration: ['0', '1', '2', '3', '4', '5', '6'],
             value_duration: '',
             query: '',
+            sop: '',
+            doj: '',
+            applicationdate: '',
+            jobtitle: ''
 
         };
         this.renderIcon = this.renderIcon.bind(this);
         this.sortChange = this.sortChange.bind(this);
         this.onChangeminmax = this.onChangeminmax.bind(this);
         this.handleQuery = this.handleQuery.bind(this);
+        this.onSubmit = this.onSubmit.bind(this);
         this.fuckoff = this.fuckoff.bind(this);
+        this.sop = this.sop.bind(this);
+    }
+
+    sop() {
+
+        if (!this.state.jobtitle) {
+            return <Fragment> </Fragment>
+        }
+        else {
+            return (<div className="form-group">
+                <div>
+                    <h3>SOP: (max 250 words) </h3>
+                </div>
+
+                <textarea
+                    className="form-control"
+                    maxLength="250"
+                    value={this.state.sop}
+                    onChange={e => {
+                        this.setState(
+                            { sop: e.target.value })
+                    }}
+                />
+                <div className="form-group">
+                    <input type="submit" value="Submit SOP" onClick={this.onSubmit(this.state.jobtitle)} className="btn btn-primary" />
+                </div>
+            </div>)
+
+        }
+
     }
 
 
@@ -51,7 +87,60 @@ class Jobapply extends Component {
         this.setState({ query: event.target.value });
     }
 
-    fuckoff(){
+    onSubmit(jobtitle) {
+        return e => {
+            e.preventDefault();
+            // alert(jobtitle);
+            const application = {
+                applicant_id: ls.get("currentuser"),
+                rating: this.state.appliedJobRating,
+                status: 'Applied',
+                sop: this.state.sop,
+                applicationdate: Date.now(),
+                joiningdate: this.state.doj,
+            }
+            console.log(application);
+            // console.log("wtf");
+            // console.log(this.state.jobtitle);
+            // var temp = this.state.job.find(word => word.title === this.state.jobtitle).application;
+            // var flag = 0;
+            // for (var i = 0; i < temp.length; i++) {
+            //     if (temp[i].applicant_id == application.applicant_id) {
+            //         flag = 1;
+
+            //     }
+            // }
+            // if (flag == 1) {
+            //     alert("You have already applied for this job");
+            // }
+            // else {
+            axios.post('http://localhost:4000/user/apply/' + jobtitle, application)
+                .then(res => {
+                    alert("Applied for\t" + res.data.title);
+                    console.log("alerted")
+                    console.log(res)
+                    window.location.reload();
+
+                })
+                .catch(err => {
+                    if (err.response.status === 400) {
+
+                        alert("Some error occured");
+                    }
+                    if (err.response.status === 404) {
+                        alert("Already registered!");
+                        // console.log(this.state.jobtitle);
+
+                    }
+                });
+        }
+        // }
+
+    }
+
+
+
+    fuckoff() {
         // console.log(this.state.sortedUsers);
         // const fuse = new Fuse(this.state.job,{
         //     keys: ['title']
@@ -63,35 +152,35 @@ class Jobapply extends Component {
         //     this.state.job.push(element.item);            
         // });
 
-        if(this.state.query===''){ 
+        if (this.state.query === '') {
             this.setState({
                 sortedUsers: this.state.job
             });
         }
-        else{
-            const fuse = new Fuse(this.state.job,{
+        else {
+            const fuse = new Fuse(this.state.job, {
                 keys: ['title']
             });
             var finaljob = fuse.search(this.state.query);
-            var temp= [];
+            var temp = [];
             finaljob.forEach(element => {
                 console.log(element.item);
-                temp.push(element.item);            
+                temp.push(element.item);
             });
-            
+
             this.setState({
-                sortedUsers: temp             
+                sortedUsers: temp
             });
 
         }
 
-        
-        
+
+
     }
 
 
     componentDidMount() {
-        axios.get('http://localhost:4000/user/job')
+        axios.get('http://localhost:4000/user/job/' + ls.get("currentuser"))
             .then(response => {
                 this.setState({
                     job: response.data.filter(word => (new Date(word.deadlinedate)).getTime() > Date.now()),
@@ -208,6 +297,7 @@ class Jobapply extends Component {
     render() {
         return (
             <div>
+                <ApplicantNavBar />
                 <Grid container>
                     <Grid item xs={12} md={3} lg={3}>
                         <List component="nav" aria-label="mailbox folders">
@@ -324,7 +414,17 @@ class Jobapply extends Component {
                                             <TableCell>{job.recruitername}</TableCell>
                                             <TableCell>{job.title}</TableCell>
                                             <TableCell>{job.deadlinedate}</TableCell>
+                                            {job.applied ? <Button>
+                                                Applied
+                                            </Button> :
 
+                                                < Button onClick={e => {
+                                                    this.setState(
+                                                        { jobtitle: job.title })
+                                                }}
+                                                >
+                                                    Apply Now
+                                            </Button>}
                                         </TableRow>
                                     ))}
                                 </TableBody>
@@ -332,7 +432,8 @@ class Jobapply extends Component {
                         </Paper>
                     </Grid>
                 </Grid>
-            </div>
+                { this.sop()}
+            </div >
         )
     }
 }

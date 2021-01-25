@@ -88,7 +88,7 @@ router.post("/jobcreating", (req, res) => {
                 salary: req.body.salary,
                 rating: req.body.rating
             });
-            
+
             newJobdetail.save()
                 .then(user => {
                     res.status(200).json(user);
@@ -108,13 +108,58 @@ router.post("/jobcreating", (req, res) => {
 
 
 
+router.post("/apply/:title", function (req, res) {
+    const title = req.params.title;
+    Jobdetails.findOne({ title }).then(job => {
+        if (!job) {
+            return res.status(404).json({
+                error: "Cannot apply, please select a new job!",
+            });
+        }
+        else {
+            // console.log(req.body);
+            job.application = [...job.application, req.body];
+            // for (const key in req.body) {
+            //     // job({application[key]: req.body[key]})
+            // }
+            // console.log(job)
+            job.save()
+                .then(job => {
+                    res.status(200).json(job);
+                })
+                .catch(err => {
+                    console.log(err);
+                    res.status(400).send(err);
+                });
+        }
+    })
+        .catch(e => {
+            res.status(400).send(e);
+            console.log(e);
+        });
+});
 
-router.get("/job", function (req, res) {
-    Jobdetails.find(function (err, job) {
+
+router.get("/job/:userid", function (req, res) {
+    Jobdetails.find(function (err, jobs) {
+
         if (err) {
             console.log(err);
         } else {
-            res.json(job);
+            // let jobs=data;
+            for (const job of jobs) {
+                job.applied = false;
+                // console.log(job.application);
+                for (const app of job.application) {
+                    
+                    if (app && app.applicant_id == req.params.userid) {
+                        job.applied = true;
+                        break;
+                    }
+                }
+                console.log(job);
+            }
+            res.json(jobs);
         }
     })
 });

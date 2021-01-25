@@ -48,13 +48,38 @@ const jobdetails = new Schema({
 		type:Number,
 		required:true
 	},
-	rating: {
-		type:Number,
-		required:false,
-		max:5,
-		min :0,
-		default:0
+	applied:{
+		type:Boolean,
+		required:false
 	},
+	application: [{
+        applicant_id:{
+            type: String,
+            required: true
+        },
+        status:{
+            type: String,
+			enum: ["Applied", "Shortlisted","Accepted","Rejected","RejectedA"],  
+            default: "Applied"
+        },
+        joiningdate:{
+            type: Date,
+        },
+        applicationdate:{
+            type: Date,
+        },
+        rating: {
+			type:Number,
+			required:false,
+			max:5,
+			min :0,
+			default:0
+		},
+        sop:{
+            type: String,
+            // required: true
+        }
+    }]
 });
 
 

@@ -3,7 +3,7 @@ import { Navbar, Nav, Container, Row, Col, Button, Badge } from 'react-bootstrap
 import logo from './logo.jpg'
 // import {RecruiterProfile} from '../JobApplicant/profile'
 import ls from "local-storage"
-import {Link} from "react-router-dom"
+import { Link } from "react-router-dom"
 
 function NavBar() {
     return (
@@ -65,16 +65,15 @@ function ApplicantNavBar() {
 
                         <Navbar.Collapse className="justify-content-end-md mt-xs-3" >
                             <Nav className="ml-auto">
-                                <Link style={{marginRight:"30px"}} to={"/profile/applicant/" + ls.get("currentuser")}  >
+                                <Link style={{ marginRight: "30px" }} to={"/profile/applicant/" + ls.get("currentuser")}  >
                                     Profile
                                 </Link>
-                                <Link to={"/profile/applicant/" + ls.get("currentuser")+"/jobapply"}  >
+                                <Link style={{ marginRight: "30px" }} to={"/profile/applicant/" + ls.get("currentuser") + "/jobapply"}  >
                                     View Job
                                 </Link>
-                                {/* <Nav.Link style={{ fontSize: "20px", fontWeight: 'light' }} href="#"  name="profileid" className="mr-3 ml-1"><i className="fas fa-user-plus" style={{ marginRight: "10px" }}></i>Profile</Nav.Link> */}
-                                {/* <Nav.Link style={{ fontSize: "20px", fontWeight: 'light' }} href={"/profile/recruiter/:id/jobcreating"} name="profileid" className="mr-3 ml-1"><i className="fas fa-user-plus" style={{ marginRight: "10px" }}></i>Create Job</Nav.Link> */}
-
-                                {/* <Nav.Link style={{ fontSize: "20px", fontWeight: 'light' }} href="/login"  ><i className="fas fa-sign-in-alt" style={{ marginRight: "10px" }}></i>Login</Nav.Link> */}
+                                <Link style={{ marginRight: "30px" }} to={"/profile/applicant/" + ls.get("currentuser") + "/viewappliedjobs"}  >
+                                    My Applied Jobs
+                                </Link>
                             </Nav>
                         </Navbar.Collapse>
                     </Navbar>
@@ -110,17 +109,16 @@ function RecruiterNavBar() {
 
                         <Navbar.Collapse className="justify-content-end-md mt-xs-3" >
                             <Nav className="ml-auto">
-                            <Link style={{marginRight:"30px"}} to={"/profile/recruiter/" + ls.get("currentuser")}  >
+                                <Link style={{ marginRight: "30px" }} to={"/profile/recruiter/" + ls.get("currentuser")}  >
                                     Profile
                                 </Link>
-                                <br>
-                                </br>
-                                <Link to={"/profile/recruiter/" + ls.get("currentuser")+"/jobcreating"}  >
+                                <Link style={{ marginRight: "30px" }} to={"/profile/recruiter/" + ls.get("currentuser") + "/jobcreating"}  >
                                     Create Job
                                 </Link>
-                                {/* <Nav.Link style={{ fontSize: "20px", fontWeight: 'light' }} href="#" name="profileid" className="mr-3 ml-1"><i className="fas fa-user-plus" style={{ marginRight: "10px" }}></i>Profile</Nav.Link> */}
-                                {/* <Nav.Link style={{ fontSize: "20px", fontWeight: 'light' }} href="/login"  ><i className="fas fa-sign-in-alt" style={{ marginRight: "10px" }}></i>Login</Nav.Link> */}
-                            </Nav>
+                                <Link style={{ marginRight: "30px" }} to={"/profile/recruiter/" + ls.get("currentuser") + "/viewapplicants"}  >
+                                    View Applicants for MyJobs
+                                </Link>
+                                </Nav>
                         </Navbar.Collapse>
                     </Navbar>
 
