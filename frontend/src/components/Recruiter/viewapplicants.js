@@ -58,7 +58,70 @@ class Viewapplicants extends Component {
         return (
             job.application ? <div>
                 <RecruiterNavBar />
-               
+                < Button style={{
+                    backgroundColor: '#12824C',
+                    color: '#FFFFFF'
+                }} onClick={e => {
+                    this.setState(
+                        { job: {...this.state.job, application:this.state.job.application.sort((a, b) => a.applicantname < b.applicantname ? -1 : 1) }})
+                }}
+                >
+                    Sort by Name
+                </Button>
+                < Button style={{
+                    backgroundColor: '#12824C',
+                    color: '#FFFFFF'
+                }} onClick={e => {
+                    this.setState(
+                        { job: {...this.state.job, application:this.state.job.application.sort((a, b) => a.applicantname >b.applicantname ? -1 : 1) }})
+                }}
+                >
+                    Sort by Name Desc
+                </Button>
+                {/* /// */}
+                < Button style={{
+                    backgroundColor: '#12824C',
+                    color: '#FFFFFF'
+                }} onClick={e => {
+                    this.setState(
+                        { job: {...this.state.job, application:this.state.job.application.sort((a, b) => a.applicationdate < b.applicationdate ? -1 : 1) }})
+                }}
+                >
+                    Sort by DOA
+                </Button>
+                < Button style={{
+                    backgroundColor: '#12824C',
+                    color: '#FFFFFF'
+                }} onClick={e => {
+                    this.setState(
+                        { job: {...this.state.job, application:this.state.job.application.sort((a, b) => a.applicationdate >b.applicationdate ? -1 : 1) }})
+                }}
+                >
+                    Sort by DOA Desc
+                </Button>
+                {/* //// */}
+                {/* /// */}
+                < Button style={{
+                    backgroundColor: '#12824C',
+                    color: '#FFFFFF'
+                }} onClick={e => {
+                    this.setState(
+                        { job: {...this.state.job, application:this.state.job.application.sort((a, b) => a.userrating < b.userrating ? -1 : 1) }})
+                }}
+                >
+                    Sort by App. Rating
+                </Button>
+                < Button style={{
+                    backgroundColor: '#12824C',
+                    color: '#FFFFFF'
+                }} onClick={e => {
+                    this.setState(
+                        { job: {...this.state.job, application:this.state.job.application.sort((a, b) => a.userrating >b.userrating ? -1 : 1) }})
+                }}
+                >
+                    Sort by App. Rating Desc
+                </Button>
+                {/* //// */}
                 <Grid item xs={12} md={9} lg={9}>
                     <Paper>
 

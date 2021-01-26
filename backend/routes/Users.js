@@ -183,6 +183,7 @@ router.get("/jobview/:userid", function (req, res) {
                 for (const app of job.application) {
 
                     if (app && app.applicant_id == req.params.userid) {
+                        job.finalrating=app.rating;
                         temparr.push(job);
                         break;
                     }
