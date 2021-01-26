@@ -61,7 +61,9 @@ class Jobapply extends Component {
         else {
             return (<div className="form-group">
                 <div>
-                    <h3>SOP: (max 250 words) </h3>
+                    <div>
+                        <h3>SOP: (max 250 words) </h3>
+                    </div>
                 </div>
 
                 <textarea
@@ -73,9 +75,18 @@ class Jobapply extends Component {
                             { sop: e.target.value })
                     }}
                 />
-                <div className="form-group">
-                    <input type="submit" value="Submit SOP" onClick={this.onSubmit(this.state.jobtitle)} className="btn btn-primary" />
+                <div>
+
+                    <div className="form-group">
+                        <div>
+
+                            <input type="submit" value="Submit SOP"
+                                onClick={this.onSubmit(this.state.jobtitle)}
+                                className="btn btn-primary" />
+                        </div>
+                    </div>
                 </div>
+
             </div>)
 
         }
@@ -124,6 +135,7 @@ class Jobapply extends Component {
                 })
                 .catch(err => {
                     if (err.response.status === 400) {
+                        // console.log(this.state.jobtitle);
                         alert("Some error occured");
                     }
                     if (err.response.status === 404) {
@@ -194,33 +206,47 @@ class Jobapply extends Component {
             })
     }
     onChangeminmax(event) {
-        var arraytemp = this.state.job;
         const min_val = this.state.min;
-        const max_val = this.state.max;
+        var arraytemp = this.state.job;
         var array = [];
-        if (min_val > 0 && max_val) {
-            for (var i = 0; i < arraytemp.length; i++) {
-                if (min_val <= arraytemp[i].salary && max_val >= arraytemp[i].salary) {
+        const max_val = this.state.max;
+        var j = 0;
+        if (max_val && 0 < min_val) {
+            // var i = 0;
+            for (var i = 0; i < arraytemp.length; ++i) {
+                if (max_val >= arraytemp[i].salary && min_val <= arraytemp[i].salary) {
+                    j++;
                     array.push(arraytemp[i]);
+                    // console.log(i);
                 }
             }
         } else {
             if (max_val > 0) {
+
                 for (var i = 0; i < arraytemp.length; i++) {
                     if (max_val >= arraytemp[i].salary) {
+                        j++;
+                        // console.log(i);
+
                         array.push(arraytemp[i]);
                     }
                 }
             }
-            else {
+            if (max_val <= 0) {
                 if (min_val > 0) {
+                    j++;
                     for (var i = 0; i < arraytemp.length; i++) {
+                        j++;
                         if (min_val <= arraytemp[i].salary) {
+                            j++;
                             array.push(arraytemp[i]);
                         }
                     }
                 } else {
                     array = this.state.job;
+                    j++;
+                    // console.log("inside");
+
                 }
             }
         }
@@ -231,24 +257,29 @@ class Jobapply extends Component {
 
     sortChange(flag, id) {
 
-        var array = this.state.sortedUsers
+        var array = this.state.sortedUsers;
+        var j = 0;
         if (this.state.min.length > 0 || this.state.max.length > 0) {
+            j++;
             array = this.state.sortedUsers;
+            // console.log(j);
         }
         else {
+            j--;
             array = this.state.sortedUsers;
+            console.log(j);
+
         }
         array.sort(function (a, b) {
             if (id === 1) {
-                return flag ? a.salary - b.salary : b.salary - a.salary;
+                return flag ? (a.salary - b.salary) : (b.salary - a.salary);
             }
-            else {
-                if (id === 2) {
-                    return flag ? a.duration - b.duration : b.duration - a.duration;
-                } else {
-                    return flag ? a.rating - b.rating : b.rating - a.rating;
 
-                }
+            if (id === 2) {
+                return flag ? a.duration - b.duration : b.duration - a.duration;
+            } if (id === 3) {
+                return flag ? (a.finalrating - b.finalrating) : -(-b.finalrating + a.finalrating);
+
             }
         });
         if (id === 1) {
@@ -271,9 +302,10 @@ class Jobapply extends Component {
                 }
             }
         }
-        if (this.state.max.length == 0 &&
-            this.state.min.length == 0) {
+        if ((this.state.min.length == 0) && (this.state.max.length == 0)) {
+            j++;
             array = this.state.sortedUsers;
+            // console.log(j);
         }
     }
 
@@ -292,6 +324,7 @@ class Jobapply extends Component {
 
     render() {
         return (
+            <div>
             <div>
                 <ApplicantNavBar />
                 <Grid container>
@@ -367,6 +400,7 @@ class Jobapply extends Component {
                             <ListItem button divider>
                                 <Autocomplete
                                     value={this.state.value_duration}
+
                                     onChange={(event, value) => {
                                         console.log(value);
                                         var val = this.state.job.filter(word => word.duration == value);
@@ -391,34 +425,62 @@ class Jobapply extends Component {
                             <Table size="small">
                                 <TableHead>
                                     <TableRow>
-                                        <TableCell> <Button onClick={() => { this.sortChange(this.state.sortName1, 1) }}>{this.renderIcon(this.state.sortName1)}</Button>Salary</TableCell>
-                                        <TableCell> <Button onClick={() => { this.sortChange(this.state.sortName3, 3) }}>{this.renderIcon(this.state.sortName2)}</Button>Rating</TableCell>
-                                        <TableCell> <Button onClick={() => { this.sortChange(this.state.sortName2, 2) }}>{this.renderIcon(this.state.sortName3)}</Button>Duration</TableCell>
-                                        <TableCell>Email</TableCell>
-                                        <TableCell>Recruiter Name</TableCell>
-                                        <TableCell>Title</TableCell>
-                                        <TableCell>Deadline</TableCell>
+                                        <TableCell> <Button onClick={() => { 
+                                            this.sortChange(this.state.sortName1, 1) }}>{this.renderIcon(this.state.sortName1)}
+                                            </Button>Salary</TableCell>
+                                        <TableCell> 
+                                            <Button onClick={() => { 
+                                                this.sortChange(this.state.sortName3, 3) }}>{this.renderIcon(this.state.sortName2)}
+                                                </Button>Rating</TableCell>
+                                        <TableCell> 
+                                            <Button onClick={() => { 
+                                                this.sortChange(this.state.sortName2, 2) }}>{this.renderIcon(this.state.sortName3)}
+                                                </Button>Duration</TableCell>
+                                        <TableCell>
+                                            Email</TableCell>
+                                        <TableCell>
+                                            Recruiter Name</TableCell>
+                                        <TableCell>
+                                            Title</TableCell>
+                                        <TableCell>
+                                            Deadline</TableCell>
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
                                     {this.state.sortedUsers.map((job, ind) => (
                                         <TableRow key={ind}>
-                                            <TableCell>{job.salary}</TableCell>
-                                            <TableCell>{job.finalrating}</TableCell>
-                                            <TableCell>{job.duration}</TableCell>
-                                            <TableCell>{job.recruiterid}</TableCell>
-                                            <TableCell>{job.recruitername}</TableCell>
-                                            <TableCell>{job.title}</TableCell>
-                                            <TableCell>{job.deadlinedate}</TableCell>
-                                            {job.applied ? <Button style={{backgroundColor: '	#FFFF00', color: '#FFFFFF'}} >
+                                            <TableCell>
+                                                {job.salary}</TableCell>
+                                            <TableCell>
+                                                {job.finalrating}</TableCell>
+                                            <TableCell>
+                                                {job.duration}</TableCell>
+                                            <TableCell>
+                                                {job.recruiterid}</TableCell>
+                                            <TableCell>
+                                                {job.recruitername}</TableCell>
+                                            <TableCell>
+                                                {job.title}</TableCell>
+                                            <TableCell>
+                                                {job.deadlinedate}</TableCell>
+                                            {job.applied ? <Button style={{
+                                                backgroundColor: '	#FFFF00',
+                                                color: '#FFFFFF'
+                                            }} >
                                                 Applied
-                                            </Button> : (job.remainingjobs > 0 ? < Button style={{ backgroundColor: '#12824C', color: '#FFFFFF' }} onClick={e => {
+                                            </Button> : (job.remainingjobs > 0 ? < Button style={{
+                                                    backgroundColor: '#12824C',
+                                                    color: '#FFFFFF'
+                                                }} onClick={e => {
                                                     this.setState(
                                                         { jobtitle: job.title })
                                                 }}
                                                 >
                                                     Apply Now
-                                            </Button> : <Button style={{backgroundColor: '	#FF0000', color: '#FFFFFF'}} >
+                                            </Button> : <Button style={{
+                                                        backgroundColor: '	#FF0000',
+                                                        color: '#FFFFFF'
+                                                    }} >
                                                         Full
                                                     </Button>)
 
@@ -431,6 +493,7 @@ class Jobapply extends Component {
                     </Grid>
                 </Grid>
                 { this.sop()}
+            </div >
             </div >
         )
     }

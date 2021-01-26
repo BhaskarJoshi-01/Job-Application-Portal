@@ -43,31 +43,39 @@ export default class Register extends Component {
     //     this.setState({ contact: newcontact });
     // }
     onChangeContact(event) {
-        this.setState({ contact: event.target.value });
+        this.setState({
+             contact: event.target.value });
     }
     onChangeBio(event) {
-        this.setState({ bio: event.target.value });
+        this.setState({ 
+            bio: event.target.value });
     }
     onChangeFirstName(event) {
-        this.setState({ FirstName: event.target.value });
+        this.setState({
+             FirstName: event.target.value });
     }
     onChangeLastName(event) {
-        this.setState({ LastName: event.target.value });
+        this.setState({ 
+            LastName: event.target.value });
     }
 
     onChangeType(event) {
-        this.setState({ type: event.target.value });
+        this.setState({ 
+            type: event.target.value });
         var vr = 0;
         vr = 1 - this.state.usr;
-        this.setState({ usr: vr });
+        this.setState({ 
+            usr: vr });
     }
 
     onChangePassword(event) {
-        this.setState({ password: event.target.value });
+        this.setState({ 
+            password: event.target.value });
     }
 
     onChangeEmail(event) {
-        this.setState({ email: event.target.value });
+        this.setState({ 
+            email: event.target.value });
     }
     onChangeEducation(index, obj) {
 
@@ -85,7 +93,7 @@ export default class Register extends Component {
             education: [...this.state.education, obj],
 
         });
-        // console.log("inside on Addedu")
+        // console.log("here")
     }
 
     onDeleteEducation(index) {
@@ -93,6 +101,7 @@ export default class Register extends Component {
 
             education: this.state.education.filter((obj1, index1) =>
                 index1 !== index
+        // console.log("here")
 
             ),
         });
@@ -101,6 +110,7 @@ export default class Register extends Component {
     onChangeSkill(index, obj) {
 
         this.setState({
+        // console.log("here")
 
             skill: this.state.skill.map((obj1, index1) => {
                 return index === index1 ? obj : obj1;
@@ -110,6 +120,7 @@ export default class Register extends Component {
 
     onAddSkill(obj) {
         this.setState({
+        // console.log("here")
 
             skill: [...this.state.skill, obj],
 
@@ -119,6 +130,7 @@ export default class Register extends Component {
 
     onDeleteSkill(index) {
         this.setState({
+        // console.log("here")
 
             skill: this.state.skill.filter((obj1, index1) =>
                 index1 !== index
@@ -241,8 +253,10 @@ export default class Register extends Component {
                         <input type="password"
                             placeholder="Password"
                             className="form-control"
-                            value={this.state.password}
-                            onChange={this.onChangePassword}
+                            value={
+                                this.state.password}
+                            onChange={
+                                this.onChangePassword}
                         />
                     </div>
                     <div>
@@ -259,8 +273,13 @@ export default class Register extends Component {
                                 education={this.state.education} skill={this.state.skill} />
                         }
                     </div>
-                    <div className="form-group">
-                        <input type="submit" value="Register" className="btn btn-primary" />
+                    <div 
+                    className="form-group">
+                        
+                        
+                        <input type="submit"
+                         value="Register" 
+                         className="btn btn-primary" color="Green"/>
                     </div>
                 </form>
             </div>
