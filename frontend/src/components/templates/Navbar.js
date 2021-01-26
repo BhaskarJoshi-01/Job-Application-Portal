@@ -71,7 +71,7 @@ function ApplicantNavBar() {
                                 <Link style={{ marginRight: "30px" }} to={"/profile/applicant/" + ls.get("currentuser") + "/jobapply"}  >
                                     View Job
                                 </Link>
-                                <Link style={{ marginRight: "30px" }} to={"/profile/applicant/" + ls.get("currentuser") + "/viewappliedjob"}  >
+                                <Link style={{ marginRight: "30px" }} to={"/profile/applicant/" + ls.get("currentuser") + "/viewjob"}  >
                                     My Applications
                                 </Link>
                             </Nav>
@@ -114,6 +114,9 @@ function RecruiterNavBar() {
                                 </Link>
                                 <Link style={{ marginRight: "30px" }} to={"/profile/recruiter/" + ls.get("currentuser") + "/jobcreating"}  >
                                     Create Job
+                                </Link>
+                                <Link style={{ marginRight: "30px" }} to={"/profile/recruiter/" + ls.get("currentuser") + "/activejobs"}  >
+                                    Active Jobs
                                 </Link>
                                 <Link style={{ marginRight: "30px" }} to={"/profile/recruiter/" + ls.get("currentuser") + "/viewapplicants"}  >
                                     View Applicants for MyJobs

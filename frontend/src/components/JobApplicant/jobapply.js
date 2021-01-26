@@ -230,12 +230,7 @@ class Jobapply extends Component {
     }
 
     sortChange(flag, id) {
-        /**
-         *      Note that this is sorting only at front-end.
-         *      id => 1 == Salary
-         *      id => 2 == Duration
-         *      id => 3 == Rating
-         */
+        
         var array = this.state.sortedUsers
         if (this.state.min.length > 0 || this.state.max.length > 0) {
             array = this.state.sortedUsers;
@@ -251,7 +246,6 @@ class Jobapply extends Component {
                 if (id === 2) {
                     return flag ? a.duration - b.duration : b.duration - a.duration;
                 } else {
-                    //id == 3
                     return flag ? a.rating - b.rating : b.rating - a.rating;
 
                 }
@@ -410,7 +404,7 @@ class Jobapply extends Component {
                                     {this.state.sortedUsers.map((job, ind) => (
                                         <TableRow key={ind}>
                                             <TableCell>{job.salary}</TableCell>
-                                            <TableCell>{job.rating}</TableCell>
+                                            <TableCell>{job.finalrating}</TableCell>
                                             <TableCell>{job.duration}</TableCell>
                                             <TableCell>{job.recruiterid}</TableCell>
                                             <TableCell>{job.recruitername}</TableCell>
@@ -420,7 +414,7 @@ class Jobapply extends Component {
                                                 Applied
                                             </Button> :
 
-                                                < Button onClick={e => {
+                                                < Button style={{backgroundColor: '#12824C', color: '#FFFFFF'}} onClick={e => {
                                                     this.setState(
                                                         { jobtitle: job.title })
                                                 }}

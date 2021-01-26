@@ -176,6 +176,7 @@ export default class Jobcreating extends Component {
             recruitername: this.state.recruitername,
             maxapplicant: this.state.maxapplicant,
             positions: this.state.positions,
+            remainingjobs: this.state.positions,
             salary: this.state.salary,
             requiredskills: this.state.requiredskills,
             typeofjob: this.state.typeofjob,

@@ -24,6 +24,10 @@ const jobdetails = new Schema({
 		type: Number,
 		required: true
 	},
+	remainingjobs:{
+		type:Number,
+		required:false
+	},
 	postingdate: {
 		type: Date, required: true
 	},
@@ -35,51 +39,55 @@ const jobdetails = new Schema({
 		type: Array, required: true
 	},
 	typeofjob: {
-		type:String, required:true
+		type: String, required: true
 	},
 	duration: {
-		type:Number,
-		required:true,
-		min:0,
-		max:6,
-		default:0
+		type: Number,
+		required: true,
+		min: 0,
+		max: 6,
+		default: 0
 	},
 	salary: {
-		type:Number,
-		required:true
+		type: Number,
+		required: true
 	},
-	applied:{
-		type:Boolean,
-		required:false
+	finalrating: {
+		type: Number,
+		default: 0
+	},
+	applied: {
+		type: Boolean,
+		required: false
 	},
 	application: [{
-        applicant_id:{
-            type: String,
-            required: true
-        },
-        status:{
-            type: String,
-			enum: ["Applied", "Shortlisted","Accepted","Rejected","RejectedA"],  
-            default: "Applied"
-        },
-        joiningdate:{
-            type: Date,
-        },
-        applicationdate:{
-            type: Date,
-        },
-        rating: {
-			type:Number,
-			required:false,
-			max:5,
-			min :0,
-			default:0
+		applicant_id: {
+			type: String,
+			required: true
 		},
-        sop:{
-            type: String,
-            // required: true
-        }
-    }]
+		status: {
+			type: String,
+			enum: ["Applied", "Shortlisted", "Accepted", "Rejected"],
+			default: "Applied"
+		},
+		joiningdate: {
+			type: Date,
+		},
+		applicationdate: {
+			type: Date,
+		},
+		rating: {
+			type: Number,
+			required: false,
+			max: 5,
+			min: 0,
+			default: 0
+		},
+		sop: {
+			type: String,
+			// required: true
+		}
+	}]
 });
 
 
