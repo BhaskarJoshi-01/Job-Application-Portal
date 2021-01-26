@@ -425,6 +425,9 @@ router.post("/statusupdate/:title", (req, res) => {
                 if (app.applicant_id == appid) {
 
                     app.status = req.body.status
+                    if (app.status == "Accepted") {
+                        job.remainingjobs = job.remainingjobs - 1;
+                    }
 
                     // console.log(job);
                     return job.save().then(job => res.send(job))

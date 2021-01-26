@@ -50,8 +50,8 @@ class Acceptedapplicants extends Component {
         // console.log(jobtitle);
         axios.get('http://localhost:4000/user/acceptedapplicants/' + ls.get("currentuser"))
             .then(response => {
-                console.log("HI");
-                console.log(response.data);
+                // console.log("HI");
+                // console.log(response.data);
                 let apps = [];
                 for (const job of response.data) {
                     for (const app of job.application) {
