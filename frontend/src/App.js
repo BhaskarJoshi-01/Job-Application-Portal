@@ -12,6 +12,7 @@ import Jobapply from './components/JobApplicant/jobapply'
 import Jobview from './components/JobApplicant/jobview'
 import Activejobs from './components/Recruiter/activejobs'
 import Viewapplicants from './components/Recruiter/viewapplicants'
+import Acceptedapplicants from './components/Recruiter/acceptedapplicants'
 
 function App() {
   return (
@@ -29,6 +30,8 @@ function App() {
         <Route path="/profile/applicant/:id/viewjob" exact name="profileid"  component={Jobview} />
         <Route path="/profile/recruiter/:id/activejobs" exact name="profileid"  component={Activejobs} />
         <Route path="/viewjob/:title" exact name="profileid"  component={Viewapplicants} />
+        <Route path="/profile/recruiter/:id/viewapplicants" exact name="profileid"  component={Acceptedapplicants} />
+
 
       </div>
     </Router>

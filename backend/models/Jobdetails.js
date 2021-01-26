@@ -82,8 +82,14 @@ const jobdetails = new Schema({
 			max: 5,
 			min: 0,
 			default: 0
-		},
-		sop: {
+		},//applicant to job
+		ratingfromrec: {
+			type: Number,
+			required: false,
+			max: 5,
+			min: 0,
+			default: 0
+		},sop: {
 			type: String,
 			// required: true
 		}

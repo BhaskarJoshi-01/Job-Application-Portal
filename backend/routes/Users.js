@@ -280,6 +280,70 @@ router.post("/jobedit", (req, res) => {
     });
 });
 
+router.get("/acceptedapplicants/:id", (req, res) => {
+    let mainarr = [];
+    let i = 0;
+    Jobdetails.find({ recruiterid: req.params.id }).then(jobs => {
+        jobs.map(job => {
+            let arr = [];
+            // console.log(job);
+            job.application.map(app => {
+
+                User.findOne({ email: app.applicant_id }).then(user => {
+                    let temp = { ...app._doc, applicantname: user.FirstName + " " + user.LastName, skills: user.skill, edudet: user.education, userrating: user.userrating };
+                    // temp.applicantname = user.FirstName + " " + user.LastName;
+                    arr.push(temp);
+                    // console.log(i);
+                    // i++;
+                    // job.application=app;
+                    // console.log(temp);
+                }).catch(e => {
+                    res.status(400).send(e);
+                    console.log(e);
+                });
+            })
+
+
+            setTimeout(() => {
+                let temp = { ...job._doc, application: arr };
+                // job.application = arr;
+
+                // console.log(arr);
+                // console.log(temp);
+                mainarr.push(temp);
+            }, 1000);
+            // res.send(job)
+        })
+        setTimeout(() => { res.send(mainarr) }, 2000)
+
+    });
+})
+
+
+
+router.post("/ratingfromrec", (req, res) => {
+    const { jobtitle, userid, rating } = req.body;
+    Jobdetails.findOne({ title: jobtitle }).then(job => {
+        for (const app of job.application) {
+            if (app.applicant_id == userid) {
+                app.ratingfromrec = rating;
+                job.save().then(job => {
+                    res.send("OK");
+                }).catch(e => {
+                    res.status(400).send(e);
+                    console.log(e);
+                });
+                return "OK";
+            }
+        }
+        res.status(400).send("Application not found");
+
+    }).catch(e => {
+        res.status(400).send(e);
+        console.log(e);
+    });
+});
+
 router.post("/jobdelete", (req, res) => {
     const deletedjob = req.body.title;
     // console.log(req.body);
@@ -315,6 +379,7 @@ router.get("/activejobs/:recruiterid", (req, res) => {
         res.status(400).send(e);
         console.log(e);
     });
+
 });
 
 router.get("/jobget/:title", (req, res) => {
