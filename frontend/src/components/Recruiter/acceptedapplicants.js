@@ -34,7 +34,7 @@ class Acceptedapplicants extends Component {
 
     }
 
-    onChangeRating = (job,app) => (e) => {
+    onChangeRating = (job, app) => (e) => {
         // console.log("entered here");
         axios.post('http://localhost:4000/user/ratingfromrec', {
             userid: app.applicant_id,
@@ -77,8 +77,92 @@ class Acceptedapplicants extends Component {
         return (
             <div>
                 <RecruiterNavBar />
+                < Button style={{
+                    backgroundColor: '#12824C',
+                    color: '#FFFFFF'
+                }} onClick={e => {
+                    this.setState(
+                        { list: this.state.list.sort((a, b) => a.app.applicantname < b.app.applicantname ? -1 : 1) })
+                }}
+                >
+                    Sort by Name
+                </Button>
+                < Button style={{
+                    backgroundColor: '#12824C',
+                    color: '#FFFFFF'
+                }} onClick={e => {
+                    this.setState(
+                        { list: this.state.list.sort((a, b) => a.app.applicantname > b.app.applicantname ? -1 : 1) })
+                }}
+                >
+                    Sort by Name reverse
+                </Button>
+                {/* /////////// */}
+                < Button style={{
+                    backgroundColor: '#12824C',
+                    color: '#FFFFFF'
+                }} onClick={e => {
+                    this.setState(
+                        { list: this.state.list.sort((a, b) => a.job.title < b.job.title ? -1 : 1) })
+                }}
+                >
+                    Sort by Job Title
+                </Button>
+                < Button style={{
+                    backgroundColor: '#12824C',
+                    color: '#FFFFFF'
+                }} onClick={e => {
+                    this.setState(
+                        { list: this.state.list.sort((a, b) => a.job.title > b.job.title ? -1 : 1) })
+                }}
+                >
+                    Sort by Job Title reverse
+                </Button>
+                {/* ////////////// */}
+                < Button style={{
+                    backgroundColor: '#12824C',
+                    color: '#FFFFFF'
+                }} onClick={e => {
+                    this.setState(
+                        { list: this.state.list.sort((a, b) => a.job.postingdate < b.job.postingdate ? -1 : 1) })
+                }}
+                >
+                    Sort by DOJ
+                </Button>
+                < Button style={{
+                    backgroundColor: '#12824C',
+                    color: '#FFFFFF'
+                }} onClick={e => {
+                    this.setState(
+                        { list: this.state.list.sort((a, b) => a.job.postingdate > b.job.postingdate ? -1 : 1) })
+                }}
+                >
+                    Sort by DOJ reverse
+                </Button>
+                {/* //////////// */}
+                < Button style={{
+                    backgroundColor: '#12824C',
+                    color: '#FFFFFF'
+                }} onClick={e => {
+                    this.setState(
+                        { list: this.state.list.sort((a, b) => a.app.ratingfromrec < b.app.ratingfromrec ? -1 : 1) })
+                }}
+                >
+                    Sort by Applicant's Rating
+                </Button>
+                < Button style={{
+                    backgroundColor: '#12824C',
+                    color: '#FFFFFF'
+                }} onClick={e => {
+                    this.setState(
+                        { list: this.state.list.sort((a, b) => a.app.ratingfromrec > b.app.ratingfromrec ? -1 : 1) })
+                }}
+                >
+                    Sort by Applicant's Rating reverse
+                </Button>
                 <Grid item xs={12} md={9} lg={9}>
                     <Paper>
+
                         <Table size="small">
                             <TableHead>
                                 <TableRow>
@@ -103,7 +187,7 @@ class Acceptedapplicants extends Component {
                                                     min="1"
                                                     max="5"
                                                     value={app.ratingfromrec}
-                                                    onChange={this.onChangeRating(job,app)}
+                                                    onChange={this.onChangeRating(job, app)}
                                                 />
                                             </TableCell>
 

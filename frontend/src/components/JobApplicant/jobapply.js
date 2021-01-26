@@ -468,7 +468,8 @@ class Jobapply extends Component {
                                                 color: '#FFFFFF'
                                             }} >
                                                 Applied
-                                            </Button> : (job.remainingjobs > 0 ? < Button style={{
+                                            </Button> : (job.remainingjobs > 0 ?
+                                             < Button style={{
                                                     backgroundColor: '#12824C',
                                                     color: '#FFFFFF'
                                                 }} onClick={e => {

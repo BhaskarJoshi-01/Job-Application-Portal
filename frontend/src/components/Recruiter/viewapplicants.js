@@ -58,10 +58,13 @@ class Viewapplicants extends Component {
         return (
             job.application ? <div>
                 <RecruiterNavBar />
+               
                 <Grid item xs={12} md={9} lg={9}>
                     <Paper>
+
                         <Table size="small">
                             <TableHead>
+
                                 <TableRow>
                                     <TableCell>Applicant Name</TableCell>
                                     <TableCell>Skills</TableCell>
@@ -99,14 +102,14 @@ class Viewapplicants extends Component {
 
                                                     axios.post("http://localhost:4000/user/statusupdate/" + jobtitle, tempv).then(res => { window.location.reload() }).catch(err => { alert("Error") });
                                                 }}>Accept</Button> : <Fragment></Fragment>)} </TableCell>
-                                        <TableCell>{app.status == "Applied" || app.status == "Shortlisted" ? <Button style={{ backgroundColor: '#FF0000', color: '#FFFFFF	' }} onClick={() => { app.status = "Rejected" }} 
-                                        onClick={e => {
-                                            e.preventDefault();
-                                            const tempv = { appid: app.applicant_id, status: "Rejected" };
-                                            const jobtitle = window.location.pathname.split('/')[2];
+                                        <TableCell>{app.status == "Applied" || app.status == "Shortlisted" ? <Button style={{ backgroundColor: '#FF0000', color: '#FFFFFF	' }} onClick={() => { app.status = "Rejected" }}
+                                            onClick={e => {
+                                                e.preventDefault();
+                                                const tempv = { appid: app.applicant_id, status: "Rejected" };
+                                                const jobtitle = window.location.pathname.split('/')[2];
 
-                                            axios.post("http://localhost:4000/user/statusupdate/" + jobtitle, tempv).then(res=>{window.location.reload()}).catch(err=>{alert("Error")});
-                                        }}>Reject</Button> : <Fragment></Fragment>} </TableCell>
+                                                axios.post("http://localhost:4000/user/statusupdate/" + jobtitle, tempv).then(res => { window.location.reload() }).catch(err => { alert("Error") });
+                                            }}>Reject</Button> : <Fragment></Fragment>} </TableCell>
 
 
                                     </TableRow>
