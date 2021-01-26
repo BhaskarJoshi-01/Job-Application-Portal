@@ -230,7 +230,7 @@ class Jobapply extends Component {
     }
 
     sortChange(flag, id) {
-        
+
         var array = this.state.sortedUsers
         if (this.state.min.length > 0 || this.state.max.length > 0) {
             array = this.state.sortedUsers;
@@ -410,17 +410,19 @@ class Jobapply extends Component {
                                             <TableCell>{job.recruitername}</TableCell>
                                             <TableCell>{job.title}</TableCell>
                                             <TableCell>{job.deadlinedate}</TableCell>
-                                            {job.applied ? <Button>
+                                            {job.applied ? <Button style={{backgroundColor: '	#FFFF00', color: '#FFFFFF'}} >
                                                 Applied
-                                            </Button> :
-
-                                                < Button style={{backgroundColor: '#12824C', color: '#FFFFFF'}} onClick={e => {
+                                            </Button> : (job.remainingjobs > 0 ? < Button style={{ backgroundColor: '#12824C', color: '#FFFFFF' }} onClick={e => {
                                                     this.setState(
                                                         { jobtitle: job.title })
                                                 }}
                                                 >
                                                     Apply Now
-                                            </Button>}
+                                            </Button> : <Button style={{backgroundColor: '	#FF0000', color: '#FFFFFF'}} >
+                                                        Full
+                                                    </Button>)
+
+                                            }
                                         </TableRow>
                                     ))}
                                 </TableBody>

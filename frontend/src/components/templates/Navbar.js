@@ -119,7 +119,7 @@ function RecruiterNavBar() {
                                     Active Jobs
                                 </Link>
                                 <Link style={{ marginRight: "30px" }} to={"/profile/recruiter/" + ls.get("currentuser") + "/viewapplicants"}  >
-                                    View Applicants for MyJobs
+                                    View Accepted Applicants
                                 </Link>
                                 </Nav>
                         </Navbar.Collapse>

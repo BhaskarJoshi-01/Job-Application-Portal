@@ -25,7 +25,7 @@ router.get("/", function (req, res) {
 
 router.post("/register", (req, res) => {
     const email = req.body.email;
-    console.log(req.body);
+    // console.log(req.body);
     User.findOne({ email }).then(user => {
         if (!user) {
             const newUser = new User({
@@ -37,7 +37,7 @@ router.post("/register", (req, res) => {
                 type: req.body.type,
                 password: req.body.password
             });
-            console.log(user);
+            // console.log(user);
             if (req.body.type == 'Recruiter') {
                 newUser.contact = req.body.contact
             }
@@ -196,6 +196,7 @@ router.get("/jobview/:userid", function (req, res) {
 
 router.post("/apprating", (req, res) => {
     const { jobtitle, userid, rating } = req.body;
+    // console.log(req.body);
     Jobdetails.findOne({ title: jobtitle }).then(
         job => {
             // console.log(job);
@@ -234,7 +235,7 @@ router.post("/profileedit", (req, res) => {
             for (const key in req.body) {
                 user[key] = req.body[key];
             }
-            console.log(user);
+            // console.log(user);
             user.save()
                 .then(user => {
                     res.status(200).json(user);
@@ -281,13 +282,13 @@ router.post("/jobedit", (req, res) => {
 
 router.post("/jobdelete", (req, res) => {
     const deletedjob = req.body.title;
-    console.log(req.body);
+    // console.log(req.body);
     Jobdetails.findOne({ title: deletedjob }).then(job => {
         if (job) {
             for (const app of job.application) {
                 User.updateMany({
                     email: app.applicant_id,
-                }, { $inc: { 'count': -1} }, { multi: true }).then().catch(console.log)
+                }, { $inc: { 'count': -1 } }, { multi: true }).then().catch(console.log)
             }
             Jobdetails.deleteOne({ title: deletedjob }).then(job => res.send("OK")).catch(e => {
                 res.status(400).send(e);
@@ -315,6 +316,76 @@ router.get("/activejobs/:recruiterid", (req, res) => {
         console.log(e);
     });
 });
+
+router.get("/jobget/:title", (req, res) => {
+    let arr = [];
+    Jobdetails.findOne({ title: req.params.title }).then(job => {
+        // console.log(typeof job);
+        job.application.map(app => {
+            User.findOne({ email: app.applicant_id }).then(user => {
+                let temp = { ...app._doc, applicantname: user.FirstName + " " + user.LastName, skills: user.skill, edudet: user.education, userrating: user.userrating };
+                // temp.applicantname = user.FirstName + " " + user.LastName;
+                arr.push(temp);
+
+                // job.application=app;
+                // console.log(temp);
+            }).catch(e => {
+                res.status(400).send(e);
+                console.log(e);
+            });
+        })
+
+
+        setTimeout(() => {
+            let temp = { ...job._doc, application: arr };
+            // job.application = arr;
+
+            // console.log(arr);
+            // console.log(temp);
+            res.send(temp)
+        }, 1000);
+        // res.send(job)
+    }).catch(e => {
+        res.status(400).send(e);
+        console.log(e);
+    });
+});
+
+router.post("/statusupdate/:title", (req, res) => {
+    const appid = req.body.appid;
+    // console.log(req.body);
+    Jobdetails.findOne({ title: req.params.title }).then(job => {
+        if (job) {
+            for (const app of job.application) {
+                if (app.applicant_id == appid) {
+
+                    app.status = req.body.status
+
+                    // console.log(job);
+                    return job.save().then(job => res.send(job))
+                        .catch(err => res.status(400).send(err))
+                }
+            }
+            // console.log(job);
+            job.save()
+                .then(job => {
+                    res.status(200).json(job);
+                })
+                .catch(err => {
+                    res.status(400).send(err);
+                });
+        }
+        else {
+            return res.status(404).json({
+                error: "No job found :/ ",
+            });
+        }
+    }).catch(e => {
+        res.status(400).send(e);
+        console.log(e);
+    });
+});
+
 
 // POST request 
 // Login

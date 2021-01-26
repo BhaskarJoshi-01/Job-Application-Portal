@@ -31,13 +31,16 @@ class Jobview extends Component {
             rating: 0
 
         };
-        this.onChangeRating = this.onChangeRating.bind(this);
-
     }
 
-    onChangeRating(e) {
-        this.setState({
-            rating: e.target.value
+    onChangeRating = job => (e) => {
+        console.log("entered here");
+        axios.post('http://localhost:4000/user/apprating', {
+            userid: ls.get("currentuser"),
+            jobtitle: job.title,
+            rating: Number(e.target.value)
+        }).then(() => { window.location.reload() }).catch(function (error) {
+            console.log(error);
         });
     }
 
@@ -91,9 +94,11 @@ class Jobview extends Component {
                                         <TableCell>{job.recruitername}</TableCell>
                                         <TableCell>{job.title}</TableCell>
                                         <TableCell>{job.salary}</TableCell>
-                                        <TableCell>{job.app.status == 'Accepted' ? <input  type="number"
+                                        <TableCell>{job.app.status == 'Accepted' ? <input type="number"
                                             min="1"
                                             max="5"
+                                            value={job.finalrating}
+                                            onChange={this.onChangeRating(job)}
                                         /> : "--"}</TableCell>
                                         <TableCell>{job.app.status}</TableCell>
 

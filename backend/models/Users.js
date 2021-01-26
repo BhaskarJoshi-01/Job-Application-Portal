@@ -51,7 +51,9 @@ const UserSchema = new Schema({
 	count: {
 		type: Number,
 		default: 0
-	}
+	},
+	userrating: { type: Number, required: false, default: 0 },
+	ratinggot: { type: Number, required: false, default: 0 }
 });
 
 

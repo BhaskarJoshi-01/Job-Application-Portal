@@ -34,6 +34,11 @@ class Activejobs extends Component {
 
     }
 
+    onClickTitle = (title) => (e) => {
+        e.preventDefault()
+        window.location="/viewjob/"+title
+    }
+
     onChangemaxapp = (tjob) => {
         return e => {
             this.setState({
@@ -112,7 +117,7 @@ class Activejobs extends Component {
                             <TableBody>
                                 {this.state.jobs.map((job, ind) => (
                                     <TableRow key={ind}>
-                                        <TableCell>{job.title}</TableCell>
+                                        <TableCell onClick={this.onClickTitle(job.title)} >{job.title}</TableCell>
                                         <TableCell>{new Date(job.postingdate).toLocaleString()}</TableCell>
                                         <TableCell>{job.positions - job.remainingjobs}</TableCell>
                                         <TableCell>{job.remainingjobs}</TableCell>
