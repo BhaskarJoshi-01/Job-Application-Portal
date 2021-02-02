@@ -105,9 +105,9 @@ class Activejobs extends Component {
                                     <TableCell>Title</TableCell>
                                     <TableCell>DOP</TableCell>
                                     <TableCell>No. of Applicants</TableCell>
-                                    <TableCell>Remaining Numbers</TableCell>
-                                    <TableCell>Edit Max Applicants</TableCell>
+                                    <TableCell>Remaining Number of App.</TableCell>
                                     <TableCell>Edit No. of Positions</TableCell>
+                                    <TableCell>Edit Max Applicants</TableCell>
                                     <TableCell>Edit Deadline of Application</TableCell>
                                     <TableCell></TableCell>
                                     <TableCell></TableCell>
